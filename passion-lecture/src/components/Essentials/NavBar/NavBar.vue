@@ -41,7 +41,7 @@ nav {
   background-color: #1c1c1c;
   color: #fafafa;
   padding: 0px 30px;
-  border-radius: 30px;
+  border-radius: 50px;
 }
 
 .nav-link {
