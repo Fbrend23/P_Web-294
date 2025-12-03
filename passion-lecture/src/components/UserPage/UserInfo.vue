@@ -27,10 +27,10 @@ onMounted(async () => {
         numberOfBooksCreated.value = data[1];
 
         // fetch last book
-        if (data[2]) {
+        if (data[2].length > 0) {
             bookImage.value = data[2].imagePath;
         } else {
-            bookImage.value = '/path/to/default-image.png';
+            bookImage.value = '/public/no_cover.jpg';
         }
 
     } catch (error) {
