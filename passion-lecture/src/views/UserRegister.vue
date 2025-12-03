@@ -1,5 +1,5 @@
 <script></script>
 <template>
-  <p>Create book</p>
+  <p>user register</p>
 </template>
 <style></style>
