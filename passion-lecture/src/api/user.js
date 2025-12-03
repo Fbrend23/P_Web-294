@@ -13,5 +13,5 @@ export function apiLogoutUser() {
 }
 
 export function apiGetUser(userId) {
-  return api.get(`${userId}`)
+  return api.get(`users/${userId}`)
 }
