@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import NavBarPopup from './NavBarPopup.vue'
 
 const connected = true
 const popup = ref(false)
+const user = ref(null)
 
 function showPopup() {
   popup.value = !popup.value
@@ -14,15 +15,18 @@ function showPopup() {
   <nav>
     <h1>Passion lecture</h1>
     <div class="nav-div">
-      <a href="#" class="nav-link">Accueil</a>
-      <a href="#" class="nav-link">Catalogue</a>
+      <router-link :to="{ name: 'home' }" class="nav-link">Accueil</router-link>
+      <router-link :to="{ name: 'bookCatalogue' }" class="nav-link">Catalogue</router-link>
     </div>
     <div v-if="!connected" class="nav-div">
-      <a href="#" class="nav-link">S'inscrire</a>
-      <a href="#" class="nav-btn">Se connecter</a>
+      <router-link :to="{ name: 'register' }" class="nav-link">S'inscrire</router-link>
+      <router-link :to="{ name: 'login' }" class="nav-btn">Se connecter</router-link>
+      <!-- <a href="#" class="nav-link">S'inscrire</a> -->
+      <!-- <a href="#" class="nav-btn">Se connecter</a> -->
     </div>
     <div v-else class="nav-div">
-      <a href="#" class="nav-btn">+ Créer</a>
+      <router-link :to="{ name: 'bookCreate' }" class="nav-btn">+ Créer</router-link>
+      <!-- <a href="#" class="nav-btn">+ Créer</a> -->
       <button @click="showPopup">
         <img src="@/assets/icons/profile-icon.svg" alt="profile" />
       </button>
@@ -55,6 +59,7 @@ nav {
 
 .nav-btn {
   background-color: #42d21a;
+  color: #fafafa;
   text-decoration: none;
   padding: 10px;
   border-radius: 25px;
