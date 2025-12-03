@@ -1,5 +1,5 @@
 <script setup>
-import { apiGetAllBooks } from '@/api/books';
+import { apiGetAllBooks, apiGetOneBook } from '@/api/books';
 import { ref, onMounted } from 'vue'
 
 const books = ref([]);
@@ -43,7 +43,10 @@ onMounted(async () => {
       v-for="book in books" 
       :key="book.id"
     >
-      {{ book.imagePath }}
+    <router-link :to="{ name: 'bookShow', params: { id: book.id } }"> <!--Renvoyer vers la page BookShow-->
+      <img :src="book.imagePath" alt="book image"></img>
+      {{ book.title }}
+    </router-link>
     </div>
   </div>
 </template>
@@ -59,5 +62,8 @@ p {
   text-align: center;
   padding: 20px;
   padding: 20px;
+}
+a {
+  text-decoration: none;
 }
 </style>
