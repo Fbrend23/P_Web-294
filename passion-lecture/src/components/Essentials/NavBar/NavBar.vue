@@ -42,6 +42,7 @@ nav {
   color: #fafafa;
   padding: 0px 30px;
   border-radius: 50px;
+  margin-top: 20px;
 }
 
 .nav-link {
