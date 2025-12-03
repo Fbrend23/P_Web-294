@@ -47,7 +47,7 @@ const router = createRouter({
       component: UserRegister,
     },
     {
-      path: '/userpage',
+      path: '/userpage/:id',
       name: 'userPage',
       component: UserPage,
     },
