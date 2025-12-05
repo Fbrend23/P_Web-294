@@ -34,7 +34,7 @@ onMounted(async () => {
     </div>
     <div>
       <h3>Catégorie</h3>
-      <select name="category" id="select-category" v-model="filters.category">
+      <select name="category" id="select-category" v-model="props.filters.category">
         <option value="">Sélectionnez une catégorie</option>
         <option v-if="categories.length === 0" value="" disabled>Chargement...</option>
         <option v-for="category in categories" :value="category.id">{{ category.label }}</option>

@@ -18,22 +18,10 @@ watch(
   { deep: true },
 )
 
-// watchEffect(async () => {
-//   const { sort, category } = filters
-//   const response = await apiGetCustomBooks(1, 10, sort.sort, sort.order, category, '', '')
-//   books.value = response.data.data
-// })
-
 const fetchBooks = async () => {
   try {
     const books2 = await apiGetCustomBooks(1, 10, 'title', 'asc', '', '')
-    // const response = await apiGetAllBooks()
 
-    // const sorted = response.data.data.sort((a, b) => {
-    //   return new Date(b.createdAt) - new Date(a.createdAt)
-    // })
-
-    // books.value = sorted
     books.value = books2.data.data
   } catch (error) {
     console.error('Error while fetching books: ', error)
