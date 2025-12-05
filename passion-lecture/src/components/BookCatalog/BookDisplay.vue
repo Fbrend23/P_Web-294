@@ -4,8 +4,6 @@ import { ref, onMounted, defineProps } from 'vue'
 const props = defineProps(['bookInfo'])
 
 const book = props.bookInfo
-
-console.log(book)
 </script>
 <template>
   <tr>

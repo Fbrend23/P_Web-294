@@ -1,6 +1,6 @@
 <script setup>
 import { apiGetAllBooks, apiGetOneBook } from '@/api/books'
-import BookDisplay from '@/components/BookCatalogue/BookDisplay.vue'
+import BookDisplay from '@/components/BookCatalog/BookDisplay.vue'
 import { ref, onMounted, computed } from 'vue'
 
 const books = ref([])

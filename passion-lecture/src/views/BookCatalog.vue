@@ -1,7 +1,7 @@
 <script setup>
-import BookFilter from '@/components/BookCatalogue/BookFilter.vue'
-import BookList from '@/components/BookCatalogue/BookList.vue'
-import SearchBar from '@/components/BookCatalogue/SearchBar.vue'
+import BookFilter from '@/components/BookCatalog/BookFilter.vue'
+import BookList from '@/components/BookCatalog/BookList.vue'
+import SearchBar from '@/components/BookCatalog/SearchBar.vue'
 </script>
 <template>
   <div id="content">
