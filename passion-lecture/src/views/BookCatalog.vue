@@ -2,13 +2,30 @@
 import BookFilter from '@/components/BookCatalog/BookFilter.vue'
 import BookList from '@/components/BookCatalog/BookList.vue'
 import SearchBar from '@/components/BookCatalog/SearchBar.vue'
+import { reactive } from 'vue'
+
+const filters = reactive({
+  sort: {
+    sort: 'title',
+    order: 'asc',
+  },
+  category: '',
+})
 </script>
 <template>
   <div id="content">
-    <BookFilter />
+    <BookFilter
+      :filters="filters"
+      @change-filters="
+        (newFilters) => {
+          filters = newFilters
+          console.log(filters)
+        }
+      "
+    />
     <div id="list">
       <SearchBar />
-      <BookList />
+      <BookList :filters="filters" />
     </div>
   </div>
 </template>

@@ -14,6 +14,15 @@ const book = props.bookInfo
     </td>
     <td>{{ book.author.firstName }} {{ book.author.lastName }}</td>
     <td>{{ book.user.username }}</td>
+    <td>
+      {{
+        new Date(book.createdAt).toLocaleString('fr-FR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        })
+      }}
+    </td>
   </tr>
 </template>
 <style scoped></style>
