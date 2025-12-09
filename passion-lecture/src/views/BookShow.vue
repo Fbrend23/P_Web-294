@@ -5,6 +5,7 @@ import { apiGetOneBook } from '@/api/books'
 import { apiGetOneBookAvgEval } from '@/api/evaluation'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import CommentBox from '@/components/BookShow/Comment/CommentBox.vue'
 
 const route = useRoute()
 const book = ref()
@@ -35,11 +36,14 @@ onMounted(async () => {
 
 <template>
   <div v-if="book && rating">
+    
   <router-link :to="{ name: 'userPage', params: { id: book.user.id } }">
     <h1>Créé par {{ book.user.username }}</h1>
   </router-link>
 
   <BookInfo :book="book" :rating="rating" />
+  <CommentBox :book="book"/>
+
   </div>
 </template>
 
