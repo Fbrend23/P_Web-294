@@ -1,35 +1,43 @@
 <script setup>
 import { apiGetAllBooks, apiGetCustomBooks } from '@/api/books'
 import BookDisplay from '@/components/BookCatalog/BookDisplay.vue'
-import { ref, onMounted, watch, defineProps, reactive } from 'vue'
+import { ref, onMounted, watch, defineProps, watchEffect } from 'vue'
 
 const books = ref([])
 
 const props = defineProps(['filters'])
 
-watch(
-  () => props.filters,
-  async (newFilters) => {
-    const { sort, category, search } = newFilters
-    books.value = []
-    const response = await apiGetCustomBooks(1, 10, sort.sort, sort.order, category, search)
-    books.value = response.data.data
-  },
-  { deep: true },
-)
+const maxPage = ref(1)
 
-const fetchBooks = async () => {
-  try {
-    const books2 = await apiGetCustomBooks(1, 10, 'title', 'asc', '', '')
+const page = ref(1)
 
-    books.value = books2.data.data
-  } catch (error) {
-    console.error('Error while fetching books: ', error)
-  }
-}
+// const fetchBooks = async () => {
+//   try {
+//     const books2 = await apiGetCustomBooks(1, 10, 'title', 'asc', '', '')
+//     maxPage.value = books2.data.meta.lastPage
+//     books.value = books2.data.data
+//   } catch (error) {
+//     console.error('Error while fetching books: ', error)
+//   }
+// }
 
 onMounted(async () => {
-  fetchBooks()
+  // fetchBooks()
+  watchEffect(async () => {
+    const { sort, category, search } = props.filters
+    books.value = []
+    const response = await apiGetCustomBooks(
+      page.value,
+      10,
+      sort.sort,
+      sort.order,
+      category,
+      search,
+    )
+    maxPage.value = response.data.meta.lastPage
+    page.value <= maxPage ? page : 1
+    books.value = response.data.data
+  })
 })
 </script>
 <template>
@@ -53,5 +61,28 @@ onMounted(async () => {
       ></BookDisplay>
     </tbody>
   </table>
+  <div>
+    <button
+      v-if="page !== 1"
+      @click="
+        () => {
+          page = page === 1 ? page : page - 1
+        }
+      "
+    >
+      <-
+    </button>
+    <p>Page {{ page }}</p>
+    <button
+      v-if="page < maxPage"
+      @click="
+        () => {
+          page = page === maxPage ? page : page + 1
+        }
+      "
+    >
+      ->
+    </button>
+  </div>
 </template>
 <style scoped></style>
