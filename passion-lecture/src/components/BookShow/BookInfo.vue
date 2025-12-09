@@ -1,6 +1,6 @@
 <script setup>
 import {apiGetOneBook} from '@/api/books';
-import {apiGetOneBookAvgEval} from '@/api/evaluation'
+import {apiAddAnEval, apiGetOneBookAvgEval} from '@/api/evaluation'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -8,6 +8,7 @@ const route = useRoute()
 const book = ref();
 const bookId = route.params.id;
 const rating = ref([]);
+const userRating = ref([]);
 // const user =  ref(null);
 // const userId =  ref(null);
 
@@ -29,6 +30,19 @@ onMounted(async () => {
     console.error("Erreur lors de la récupération du livre :", error);
   }
 });
+
+const onSubmit = async () => {
+try {
+    await apiAddAnEval(bookId, userRating.value);
+
+    // Refresh avg rating after submitting
+    const resEval = await apiGetOneBookAvgEval(bookId);
+    rating.value = resEval.data;
+
+  } catch (err) {
+    console.error("Erreur lors de l'ajout de la note :", err);
+  }
+};
 </script>
 
 <template>
@@ -44,7 +58,7 @@ onMounted(async () => {
             <div class="rating">
                     <form class="review-form" @submit.prevent="onSubmit">
                     <label for="rating"></label>
-                    <select id="rating" v-model.number="rating">
+                    <select id="rating" v-model.number="userRating">
                         <option>5</option>
                         <option>4</option>
                         <option>3</option>
