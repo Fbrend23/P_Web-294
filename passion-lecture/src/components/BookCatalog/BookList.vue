@@ -10,9 +10,9 @@ const props = defineProps(['filters'])
 watch(
   () => props.filters,
   async (newFilters) => {
-    const { sort, category } = newFilters
+    const { sort, category, search } = newFilters
     books.value = []
-    const response = await apiGetCustomBooks(1, 10, sort.sort, sort.order, category, '', '')
+    const response = await apiGetCustomBooks(1, 10, sort.sort, sort.order, category, search)
     books.value = response.data.data
   },
   { deep: true },
@@ -38,6 +38,7 @@ onMounted(async () => {
       <tr>
         <th>Titre</th>
         <th>Auteur</th>
+        <th>Catégorie</th>
         <th>Créateur</th>
         <th>Créé le</th>
       </tr>
