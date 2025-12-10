@@ -1,18 +1,8 @@
 <script setup>
-import { apiGetAllBooks, apiGetOneBook } from '@/api/books';
+import { apiGetAllBooks } from '@/api/books';
 import { ref, onMounted } from 'vue'
 
 const books = ref([]);
-
-// onMounted(async () => {
-//   try {
-//     //le backend renvoie { meta: ..., data: [...] } !
-//     const response = await apiGetAllBooks();
-//     books.value = response.data.data; // met les livres dans le ref
-//   } catch (error) {
-//     console.error("Erreur lors de la récupération des livres :", error);
-//   }
-// });
 
 onMounted(async () => {
   try {

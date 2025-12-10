@@ -19,6 +19,8 @@ const router = createRouter({
       component: HomePage,
     },
     {
+<<<<<<< HEAD
+=======
       path: '/books/:id',
       name: 'bookShow',
       component: BookShow,
@@ -49,6 +51,7 @@ const router = createRouter({
       component: UserRegister,
     },
     {
+>>>>>>> main
       path: '/userpage/:id',
       name: 'userPage',
       component: UserPage,
