@@ -1,4 +1,13 @@
-<script></script>
+<script setup>
+import router from '@/router'
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
+
+async function logout() {
+  await auth.logout()
+  router.push('/')
+}
+</script>
 <template>
   <div id="popup">
     <div id="profile">
@@ -6,7 +15,7 @@
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
         <p>Username</p>
       </div>
-      <router-link :to="{ name: 'userPage', params: { id: 1 } }" id="profile-link"
+      <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link"
         >Voir son profil</router-link
       >
     </div>
@@ -17,7 +26,7 @@
       </router-link>
       <a href="#" class="link">
         <img src="@/assets/icons/logout.svg" alt="logout" />
-        <p>Se déconnecter</p>
+        <button @click="logout">Se déconnecter</button>
       </a>
     </div>
   </div>

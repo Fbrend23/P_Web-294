@@ -5,9 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
 
-const connected = ref(auth.isAuthenticated)
 const popup = ref(false)
-const user = ref(null)
 
 function showPopup() {
   popup.value = !popup.value
@@ -20,7 +18,7 @@ function showPopup() {
       <router-link :to="{ name: 'home' }" class="nav-link">Accueil</router-link>
       <router-link :to="{ name: 'bookCatalogue' }" class="nav-link">Catalogue</router-link>
     </div>
-    <div v-if="!connected" class="nav-div">
+    <div v-if="!auth.isAuthenticated" class="nav-div">
       <router-link :to="{ name: 'register' }" class="nav-link">S'inscrire</router-link>
       <router-link :to="{ name: 'login' }" class="nav-btn">Se connecter</router-link>
     </div>

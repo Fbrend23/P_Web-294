@@ -9,7 +9,7 @@ export function apiLoginUser({ username, hash_password }) {
 }
 
 export function apiLogoutUser() {
-  return api.post('/logout')
+  return api.post('/user/logout')
 }
 
 export function apiGetUser(userId) {
