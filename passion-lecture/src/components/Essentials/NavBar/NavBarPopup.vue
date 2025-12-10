@@ -6,7 +6,9 @@
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
         <p>Username</p>
       </div>
-      <router-link :to="{ name: 'userPage' }" id="profile-link">Voir son profil</router-link>
+      <router-link :to="{ name: 'userPage', params: { id: 1 } }" id="profile-link"
+        >Voir son profil</router-link
+      >
     </div>
     <div id="parameters">
       <router-link :to="{ name: 'userBook' }" class="link">

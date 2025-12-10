@@ -4,8 +4,8 @@ export function apiRegisterUser({ email, username, password }) {
   return api.post('/register', { email, username, password })
 }
 
-export function apiLoginUser({ username, password }) {
-  return api.post('/login', { username, password })
+export function apiLoginUser({ username, hash_password }) {
+  return api.post('/user/login', { username, hash_password })
 }
 
 export function apiLogoutUser() {
