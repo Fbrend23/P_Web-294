@@ -11,7 +11,7 @@ export function apiGetCustomBooks(page, limit, sort, order, categoryId, search) 
 }
 
 export function apiGetOneBook(bookId) {
-  return api.get(`/${bookId}`)
+  return api.get(`books/${bookId}`)
 }
 
 export function addBook() {
@@ -19,9 +19,9 @@ export function addBook() {
 }
 
 export function editBook(bookId) {
-  return api.put(`/${bookId}`)
+  return api.put(`books/${bookId}`)
 }
 
 export function deleteBook(bookId) {
-  return api.delete(`/${bookId}`)
+  return api.delete(`books/${bookId}`)
 }
