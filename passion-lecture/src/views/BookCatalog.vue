@@ -1,5 +1,5 @@
 <script></script>
 <template>
-  <p>Create book</p>
+  <p>Catalogue book</p>
 </template>
 <style></style>

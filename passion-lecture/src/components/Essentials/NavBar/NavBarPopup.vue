@@ -6,13 +6,13 @@
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
         <p>Username</p>
       </div>
-      <a href="#" id="profile-link">Voir son profil</a>
+      <router-link :to="{ name: 'userPage' }" id="profile-link">Voir son profil</router-link>
     </div>
     <div id="parameters">
-      <a href="#" class="link">
+      <router-link :to="{ name: 'userBook' }" class="link">
         <img src="@/assets/icons/book-open.svg" alt="books" />
         <p>Gérer vos ouvrages</p>
-      </a>
+      </router-link>
       <a href="#" class="link">
         <img src="@/assets/icons/logout.svg" alt="logout" />
         <p>Se déconnecter</p>
