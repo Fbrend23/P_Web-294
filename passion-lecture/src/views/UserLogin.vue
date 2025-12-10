@@ -1,19 +1,4 @@
 <script setup>
-// import { apiLoginUser } from '@/api/user'
-
-// const authData = {
-//   username: '',
-//   password: '',
-// }
-
-// async function submit() {
-//   if (authData.username === '' || authData.password === '') {
-//     console.log('nuhuh')
-//     return
-//   }
-//   await apiLoginUser({ username: authData.username, hash_password: authData.password })
-// }
-
 import { useAuthStore } from '@/stores/auth'
 import router from '@/router'
 import { ref } from 'vue'

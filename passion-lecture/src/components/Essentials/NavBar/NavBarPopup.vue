@@ -18,7 +18,7 @@ async function logout() {
     <div id="profile">
       <div id="profile-infos">
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
-        <p>Username</p>
+        <p>{{ auth.user.username }}</p>
       </div>
       <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link"
         >Voir son profil</router-link

@@ -1,7 +1,7 @@
 import { api } from './axios'
 
-export function apiRegisterUser({ email, username, password }) {
-  return api.post('/register', { email, username, password })
+export function apiRegisterUser({ username, hash_password }) {
+  return api.post('/user/register', { username, hash_password })
 }
 
 export function apiLoginUser({ username, hash_password }) {
