@@ -1,12 +1,28 @@
-<script></script>
+<script setup>
+import router from '@/router'
+import { useAuthStore } from '@/stores/auth'
+import { defineEmits } from 'vue'
+
+const auth = useAuthStore()
+
+const emit = defineEmits(['close-popup'])
+
+async function logout() {
+  emit('close-popup')
+  await auth.logout()
+  router.push('/')
+}
+</script>
 <template>
   <div id="popup">
     <div id="profile">
       <div id="profile-infos">
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
-        <p>Username</p>
+        <p>{{ auth.user.username }}</p>
       </div>
-      <router-link :to="{ name: 'userPage' }" id="profile-link">Voir son profil</router-link>
+      <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link"
+        >Voir son profil</router-link
+      >
     </div>
     <div id="parameters">
       <router-link :to="{ name: 'userBook' }" class="link">
@@ -15,7 +31,7 @@
       </router-link>
       <a href="#" class="link">
         <img src="@/assets/icons/logout.svg" alt="logout" />
-        <p>Se déconnecter</p>
+        <button @click="logout">Se déconnecter</button>
       </a>
     </div>
   </div>

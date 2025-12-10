@@ -1,14 +1,16 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import NavBarPopup from './NavBarPopup.vue'
+import { useAuthStore } from '@/stores/auth'
 
-const connected = true
+const auth = useAuthStore()
+
+const connected = computed(() => auth.isAuthenticated)
+
 const popup = ref(false)
-const user = ref(null)
 
 function showPopup() {
   popup.value = !popup.value
-  console.log(popup.value)
 }
 </script>
 <template>
@@ -21,18 +23,15 @@ function showPopup() {
     <div v-if="!connected" class="nav-div">
       <router-link :to="{ name: 'register' }" class="nav-link">S'inscrire</router-link>
       <router-link :to="{ name: 'login' }" class="nav-btn">Se connecter</router-link>
-      <!-- <a href="#" class="nav-link">S'inscrire</a> -->
-      <!-- <a href="#" class="nav-btn">Se connecter</a> -->
     </div>
     <div v-else class="nav-div">
       <router-link :to="{ name: 'bookCreate' }" class="nav-btn">+ Créer</router-link>
-      <!-- <a href="#" class="nav-btn">+ Créer</a> -->
       <button @click="showPopup">
         <img src="@/assets/icons/profile-icon.svg" alt="profile" />
       </button>
     </div>
   </nav>
-  <NavBarPopup v-if="popup"></NavBarPopup>
+  <NavBarPopup v-if="popup" @close-popup="showPopup"></NavBarPopup>
 </template>
 <style scoped>
 nav {

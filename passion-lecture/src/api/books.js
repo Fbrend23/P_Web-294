@@ -14,14 +14,14 @@ export function apiGetOneBook(bookId) {
   return api.get(`books/${bookId}`)
 }
 
-export function addBook() {
+export function apiAddBook() {
   return api.post('/books')
 }
 
-export function editBook(bookId) {
+export function apiEditBook(bookId) {
   return api.put(`books/${bookId}`)
 }
 
-export function deleteBook(bookId) {
+export function apiDeleteBook(bookId) {
   return api.delete(`books/${bookId}`)
 }
