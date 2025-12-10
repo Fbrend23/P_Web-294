@@ -14,11 +14,8 @@ export function apiLogoutUser() {
 
 export function apiGetUser(userId) {
   return api.get(`users/${userId}`)
-<<<<<<< HEAD
-=======
 }
 
 export function apiGetUsersAllBooks(userId) {
   return api.get(`/users/${userId}/books`)
->>>>>>> main
 }
