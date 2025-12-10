@@ -24,12 +24,7 @@ const toggleCommenting = () => {
 
     <CommentContent v-if="!commenting" :book="book"></CommentContent>
     <!-- Affiche le formulaire par-dessus -->
-    <CommentForm
-      v-if="commenting"
-      :book="book"
-      @close="toggleCommenting"
-      class="overlay"
-    />
+    <CommentForm v-if="commenting" :book="book" @close="toggleCommenting" class="overlay" />
 
     <button v-if="!commenting" @click="toggleCommenting">Donner son avis</button>
   </div>
