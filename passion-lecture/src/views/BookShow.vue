@@ -10,7 +10,7 @@ import CommentBox from '@/components/BookShow/Comment/CommentBox.vue'
 const route = useRoute()
 const book = ref()
 const bookId = route.params.id
-const rating = ref([]);
+const rating = ref([])
 
 // const user =  ref(null);
 // const userId =  ref(null);
@@ -36,24 +36,36 @@ onMounted(async () => {
 
 <template>
   <div v-if="book && rating">
-    
-  <router-link :to="{ name: 'userPage', params: { id: book.user.id } }">
-    <h1>Créé par {{ book.user.username }}</h1>
-  </router-link>
+    <router-link :to="{ name: 'userPage', params: { id: book.user.id } }">
+      <h1>Créé par {{ book.user.username }}</h1>
+    </router-link>
 
-  <BookInfo :book="book" :rating="rating" />
-  <CommentBox :book="book"/>
-
+    <div class="layout">
+      <BookInfo :book="book" :rating="rating" />
+      <CommentBox :book="book" />
+    </div>
   </div>
 </template>
 
 <style scoped>
-h1{
-    text-align: center;
+.layout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 20px;
 }
-h2{
-    border-bottom: 1px solid;
+
+.layout > * {
+  flex: 1; /* 50% each */
+}
+h1 {
+  text-align: center;
+}
+h2 {
+  border-bottom: 1px solid;
 }
 a {
-    text-decoration: none;
-}</style>
+  text-decoration: none;
+}
+</style>

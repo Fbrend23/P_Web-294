@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { apiAddAnEval, apiGetOneBookAvgEval } from '@/api/evaluation'
 import CommentForm from '@/components/BookShow/Comment/CommentForm.vue'
 import CommentContent from './CommentContent.vue'
 
@@ -34,6 +33,7 @@ const toggleCommenting = () => {
 .comment-box {
   border: 2px solid;
   padding: 20px;
+  margin-top: 50px;
 }
 h2 {
   border-bottom: 1px solid;

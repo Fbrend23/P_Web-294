@@ -69,6 +69,24 @@ try {
 </template>
 
 <style scoped>
+.book {
+  display: flex;
+  flex-direction: row;     
+  gap: 20px;               
+  align-items: flex-start; 
+  margin: 20px 0;
+  padding: 20px;
+}
+.bookimagerating {
+  flex: 1;                 /* Left column : image + rating */
+}
+.bookinfos {
+  flex: 2;                 /* Right column : book infos */
+  border: 2px solid;
+  padding: 20px;
+  margin: 10px;
+  min-height: 395px;
+}
 .bookinfos {
   border: 2px solid;
   padding: 20px;
