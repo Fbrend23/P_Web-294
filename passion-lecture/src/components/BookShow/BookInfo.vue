@@ -79,9 +79,10 @@ try {
 }
 .bookimagerating {
   flex: 1;                 /* Left column : image + rating */
+  margin: 10px;
 }
 .bookinfos {
-  flex: 2;                 /* Right column : book infos */
+  flex: 1;                 /* Right column : book infos */
   border: 2px solid;
   padding: 20px;
   margin: 10px;
