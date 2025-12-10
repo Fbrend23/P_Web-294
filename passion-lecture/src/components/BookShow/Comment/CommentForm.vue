@@ -1,6 +1,6 @@
 <script setup>
 import { defineEmits, ref } from 'vue'
-import { apiAddAnEval } from '@/api/evaluation'
+import { apiAddAComments } from '@/api/comments'
 
 const props = defineProps({
   book: Object
@@ -12,12 +12,11 @@ const commentText = ref(null)
 
 const submitComment = async () => {
   try {
-    // ici tu peux appeler ton API pour enregistrer le commentaire
-    // await apiAddAnEval(props.book.id, commentText.value)
+    await apiAddAComments(props.book.id, commentText.value)
 
     console.log('Commentaire envoyé :', commentText.value)
     
-    // Fermer le formulaire après l'envoi
+    // Close form after sending it
     emits('close')
   } catch (err) {
     console.error(err)

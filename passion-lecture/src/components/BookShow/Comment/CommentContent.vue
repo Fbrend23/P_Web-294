@@ -23,10 +23,23 @@ onMounted(async () => {
 </script>
 
 <template>
+  <!-- loading -->
+  <div v-if="comments === null">
+    <p>Chargement des commentaires...</p>
+  </div>
+
+  <!-- no comments on that book -->
+  <div v-else-if="comments.length === 0">
+    <h4>Il n'y a pas encore de commentaire sur cet ouvrage</h4>
+  </div>
+
+  <!-- comments list-->
+  <div v-else>
     <div class="comment" v-for="comment in comments" :key="comment.id">
-        <h4>{{ comment.content }}</h4>
-        <p class="username">{{ comment.user.username }}</p>
+      <h4>{{ comment.content }}</h4>
+      <p class="username">{{ comment.user.username }}</p>
     </div>
+  </div>
 </template>
 
 <style scoped>
