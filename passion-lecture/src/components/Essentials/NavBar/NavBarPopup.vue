@@ -1,9 +1,14 @@
 <script setup>
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
+import { defineEmits } from 'vue'
+
 const auth = useAuthStore()
 
+const emit = defineEmits(['close-popup'])
+
 async function logout() {
+  emit('close-popup')
   await auth.logout()
   router.push('/')
 }
