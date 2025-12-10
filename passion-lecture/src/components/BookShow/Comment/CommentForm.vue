@@ -8,7 +8,7 @@ const props = defineProps({
 
 const emits = defineEmits(['close'])
 
-const commentText = ref('')
+const commentText = ref(null)
 
 const submitComment = async () => {
   try {
@@ -29,8 +29,8 @@ const submitComment = async () => {
   <div class="comment-form">
     <form @submit.prevent="submitComment">
       <textarea v-model="commentText" placeholder="Votre commentaire"></textarea>
-      <button type="submit">Envoyer</button>
       <button type="button" @click="$emit('close')">Annuler</button>
+      <button type="submit">Envoyer</button>
     </form>
   </div>
 </template>

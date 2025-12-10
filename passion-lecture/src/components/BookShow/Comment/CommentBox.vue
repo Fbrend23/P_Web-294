@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { apiAddAnEval, apiGetOneBookAvgEval } from '@/api/evaluation'
 import CommentForm from '@/components/BookShow/Comment/CommentForm.vue'
+import CommentContent from './CommentContent.vue'
 
 let commenting = ref(false)
 
@@ -18,9 +19,10 @@ const toggleCommenting = () => {
 
 <template>
   <div class="comment-box" v-if="book">
-    <h2>Commentaires</h2>
-    <button @click="toggleCommenting">Donner son avis</button>
+    <h2 v-if="!commenting">Commentaires</h2>
+    <h2 v-else>Ajouter un commentaire</h2>
 
+    <CommentContent v-if="!commenting" :book="book"></CommentContent>
     <!-- Affiche le formulaire par-dessus -->
     <CommentForm
       v-if="commenting"
@@ -28,11 +30,13 @@ const toggleCommenting = () => {
       @close="toggleCommenting"
       class="overlay"
     />
+
+    <button v-if="!commenting" @click="toggleCommenting">Donner son avis</button>
   </div>
 </template>
 
 <style scoped>
-.comment {
+.comment-box {
   border: 2px solid;
   padding: 20px;
 }
