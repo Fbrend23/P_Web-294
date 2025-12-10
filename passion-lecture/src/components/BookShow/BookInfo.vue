@@ -10,6 +10,8 @@ const props = defineProps({
 })
 
 const userRating = ref(null);
+const defaultImg = '../../../public/no_cover.jpg'
+
 
 const onSubmit = async () => {
 try {
@@ -31,7 +33,12 @@ try {
     <div class="book"  v-if="book">
         <div class="bookimagerating">
 
-            <img :src="book.imagePath" alt="book image"></img>
+          <div class="bookimage">
+            <img 
+            :src="book.imagePath || defaultImg"
+            alt="bookimage"
+            @error="event => event.target.src = defaultImg"></img>
+            </div>
 
             <div class="rating">
                     <form class="review-form" @submit.prevent="onSubmit">
@@ -88,10 +95,22 @@ try {
   margin: 10px;
   min-height: 395px;
 }
-.bookinfos {
-  border: 2px solid;
-  padding: 20px;
-  margin: 10px;
+.ratingAvg{
+  text-align: center;
+}
+.review-form{
+  margin-top: 10px;
+  text-align: center;
+}
+.bookimage {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+}
+.bookimage img {
+  max-width: 70%;
+  height: auto;
 }
 h1{
     text-align: center;
