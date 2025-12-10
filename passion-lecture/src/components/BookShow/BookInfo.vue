@@ -9,12 +9,14 @@ const props = defineProps({
   rating: Object
 })
 
-const userRating = ref(null);
+const userRating = ref(0);
 const defaultImg = '../../../public/no_cover.jpg'
 
 
 const onSubmit = async () => {
 try {
+  console.log('Envoi au serveur:', props.book.id, userRating.value);
+
     await apiAddAnEval(props.book.id, userRating.value);
 
     // Refresh avg rating after submitting
@@ -41,17 +43,18 @@ try {
             </div>
 
             <div class="rating">
-                    <form class="review-form" @submit.prevent="onSubmit">
-                    <label for="rating"></label>
-                    <select id="rating" v-model.number="userRating">
-                        <option>5</option>
-                        <option>4</option>
-                        <option>3</option>
-                        <option>2</option>
-                        <option>1</option>
-                    </select>
-                    <input class="button" type="submit" value="Submit">
-                    </form>
+              <form class="review-form" @submit.prevent="onSubmit">
+              <div class="star-rating">
+                <i
+                  class="bi"
+                  v-for="star in 5"
+                  :key="star"
+                  :class="star <= userRating ? 'bi-star-fill' : 'bi-star'"
+                  @click="userRating = star"
+                ></i>
+              </div>
+              <input class="button" type="submit" value="Submit" />
+            </form>
 
                     <div class="ratingAvg">
                         <p>Note: {{ rating.average ?? "Pas encore de note"}} | {{ rating.count }} avis</p>
@@ -123,5 +126,15 @@ a {
 }
 a:visited{
   color:black;
+}
+.star-rating .bi {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.star-rating .bi-star-fill {
+  color: gold;
 }
 </style>
