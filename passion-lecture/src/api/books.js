@@ -14,12 +14,12 @@ export function apiGetOneBook(bookId) {
   return api.get(`books/${bookId}`)
 }
 
-export function apiAddBook() {
-  return api.post('/books')
+export function apiAddBook(data) {
+  return (api.post('/books'), { data })
 }
 
-export function apiEditBook(bookId) {
-  return api.put(`books/${bookId}`)
+export function apiEditBook(bookId, data) {
+  return (api.put(`books/${bookId}`), { data })
 }
 
 export function apiDeleteBook(bookId) {

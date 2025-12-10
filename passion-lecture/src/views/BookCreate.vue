@@ -1,5 +1,9 @@
-<script></script>
+<script setup>
+import BookForm from '@/components/BookCreateUpdate/BookForm.vue';
+//TODO appel axios pour récupérer toutes les catégories et tous les auteurs 
+
+</script>
 <template>
-  <p>Create book</p>
+  <BookForm></BookForm>
 </template>
 <style></style>
