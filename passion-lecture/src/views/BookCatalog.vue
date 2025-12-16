@@ -10,6 +10,7 @@ const filters = reactive({
     order: 'asc',
   },
   category: '',
+  search: '',
 })
 </script>
 <template>
@@ -24,7 +25,7 @@ const filters = reactive({
       "
     />
     <div id="list">
-      <SearchBar />
+      <SearchBar :filters="filters" />
       <BookList :filters="filters" />
     </div>
   </div>

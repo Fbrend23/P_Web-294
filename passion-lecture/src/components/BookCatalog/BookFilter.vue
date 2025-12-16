@@ -1,6 +1,6 @@
 <script setup>
 import { apiGetAllCategories } from '@/api/category'
-import { onMounted, ref, defineProps, defineEmits } from 'vue'
+import { onMounted, ref, defineProps } from 'vue'
 
 const categories = ref([])
 

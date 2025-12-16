@@ -13,6 +13,7 @@ const book = props.bookInfo
       </router-link>
     </td>
     <td>{{ book.author.firstName }} {{ book.author.lastName }}</td>
+    <td>{{ book.category.label }}</td>
     <td>{{ book.user.username }}</td>
     <td>
       {{
