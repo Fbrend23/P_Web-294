@@ -44,7 +44,7 @@ try {
     props.rating.average = resEval.data.average
     props.rating.count = resEval.data.count;
 
-    // L'utilisateur a noté : cache le bouton
+    //The user has rated the book: hides the submit button
     hasRated.value = true;
 
   } catch (err) {
@@ -63,9 +63,6 @@ try {
             alt="bookimage"
             @error="event => event.target.src = defaultImg"></img>
             </div>
-
-            <p>formerRating = {{ formerRating }}</p>
-              <p>userRating = {{ userRating }}</p>
 
             <div class="rating">
               <form class="review-form" @submit.prevent="onSubmit">
