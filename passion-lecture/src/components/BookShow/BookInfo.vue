@@ -1,20 +1,41 @@
 <script setup>
-import { ref} from 'vue'
+import { ref, watch } from 'vue'
 import {apiAddAnEval, apiGetOneBookAvgEval} from '@/api/evaluation'
 
 
 // Parent's props
 const props = defineProps({
   book: Object,
-  rating: Object
+  rating: Object,
+  formerRating: Number
 })
 
-const userRating = ref(null);
+const userRating = ref(0);
 const defaultImg = '../../../public/no_cover.jpg'
 
+const hasRated = ref(!!props.formerRating);
+
+// Synchronize with formerRating if the value arrives later
+watch(
+  () => props.formerRating,
+  (newVal) => {
+    if (newVal && newVal > 0) {
+      userRating.value = newVal
+    }
+  },
+  { immediate: true } 
+)
+
+const setRating = (star) => {
+  if (!props.formerRating || props.formerRating <= 0) {
+    userRating.value = star
+  }
+}
 
 const onSubmit = async () => {
 try {
+  console.log('Envoi au serveur:', props.book.id, userRating.value);
+
     await apiAddAnEval(props.book.id, userRating.value);
 
     // Refresh avg rating after submitting
@@ -22,6 +43,9 @@ try {
     props.rating.value = resEval.data;
     props.rating.average = resEval.data.average
     props.rating.count = resEval.data.count;
+
+    //The user has rated the book: hides the submit button
+    hasRated.value = true;
 
   } catch (err) {
     console.error("Erreur lors de l'ajout de la note :", err);
@@ -41,24 +65,26 @@ try {
             </div>
 
             <div class="rating">
-                    <form class="review-form" @submit.prevent="onSubmit">
-                    <label for="rating"></label>
-                    <select id="rating" v-model.number="userRating">
-                        <option>5</option>
-                        <option>4</option>
-                        <option>3</option>
-                        <option>2</option>
-                        <option>1</option>
-                    </select>
-                    <input class="button" type="submit" value="Submit">
-                    </form>
+              <form class="review-form" @submit.prevent="onSubmit">
+              <div class="star-rating">
+            <i
+              v-for="star in 5"
+              :key="star"
+              class="bi"
+              :class="star <= userRating ? 'bi-star-fill' : 'bi-star'"
+              @click="setRating(star)"
+            ></i>
+              </div>
+              <input 
+              v-if="(!props.formerRating || props.formerRating <= 0) && !hasRated"
+              class="button" 
+              type="submit" 
+              value="Submit" />
+            </form>
+              <div class="ratingAvg">
+                  <p>Note: {{ rating.average ?? "Pas encore de note"}} | {{ rating.count }} avis</p>
 
-                    <div class="ratingAvg">
-                        <p>Note: {{ rating.average ?? "Pas encore de note"}} | {{ rating.count }} avis</p>
-
-                    </div>
-
-                
+              </div> 
             </div>
 
         </div>
@@ -123,5 +149,15 @@ a {
 }
 a:visited{
   color:black;
+}
+.star-rating .bi {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.star-rating .bi-star-fill {
+  color: gold;
 }
 </style>
