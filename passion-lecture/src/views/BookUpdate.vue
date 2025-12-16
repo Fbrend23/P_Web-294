@@ -21,7 +21,18 @@ onMounted(async () => {
             apiGetAllAuthors(),
             apiGetAllCategories(),
         ])
-        bookData.value = bookResponse.data;
+        const data = bookResponse.data;
+        bookData.value = {
+            title: data.title,
+            authorId: data.authorId,
+            categoryId: data.categoryId,
+            numberOfPages: data.numberOfPages,
+            editor: data.editor,
+            editionYear: data.editionYear,
+            abstract: data.abstract,
+            imagePath: data.imagePath,
+            pdfLink: data.pdfLink,
+        };
         authorsList.value = authorsResponse.data;
         categoriesList.value = categoriesResponse.data;
 
@@ -33,17 +44,10 @@ onMounted(async () => {
 });
 
 const handleSave = async (dataToSave) => {
-    const formDataApi = new FormData();
-
-    for (const key in dataToSave) {
-        if (dataToSave[key] !== null && dataToSave[key] !== undefined) {
-            formDataApi.append(key, dataToSave[key]);
-        }
-    }
-
     try {
-        await apiEditBook(bookId, formDataApi);
-        router.push('/books');
+        await apiEditBook(bookId, dataToSave);
+
+        router.push('/mybooks');
     } catch (error) {
         console.error("Erreur lors de la mise à jour", error);
         alert("Une erreur est survenue lors de la sauvegarde.");
