@@ -11,16 +11,6 @@ const maxPage = ref(1)
 
 const page = ref(1)
 
-// const fetchBooks = async () => {
-//   try {
-//     const books2 = await apiGetCustomBooks(1, 10, 'title', 'asc', '', '')
-//     maxPage.value = books2.data.meta.lastPage
-//     books.value = books2.data.data
-//   } catch (error) {
-//     console.error('Error while fetching books: ', error)
-//   }
-// }
-
 onMounted(async () => {
   // fetchBooks()
   watchEffect(async () => {

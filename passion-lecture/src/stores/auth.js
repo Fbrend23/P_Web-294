@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
-import { apiLoginUser, apiLogoutUser, apiRegisterUser } from '@/api/user'
+import { apiLoginUser, apiLogoutUser } from '@/api/user'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -25,8 +24,6 @@ export const useAuthStore = defineStore('auth', {
 
       localStorage.setItem('accessToken', token.token)
       localStorage.setItem('user', JSON.stringify(user))
-
-      // axios.defaults.headers.common['Authorization'] = `Bearer ${token.token}`
     },
 
     async logout() {
@@ -37,8 +34,6 @@ export const useAuthStore = defineStore('auth', {
 
       localStorage.removeItem('accessToken')
       localStorage.removeItem('user')
-
-      // delete axios.defaults.headers.common['Authorization']
     },
   },
 })
