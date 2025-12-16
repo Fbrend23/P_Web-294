@@ -5,13 +5,13 @@ const props = defineProps({
     initialData: {
         default: () => ({
             title: '',
-            author_id: '',
-            category_id: '',
-            page_count: '',
+            authorId: '',
+            categoryId: '',
+            numberOfPages: '',
             editor: '',
-            year: '',
-            summary: '',
-            image_url: null
+            editionYear: '',
+            abstract: '',
+            imagePath: null
         })
     },
     isEditing: { default: false },
