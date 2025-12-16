@@ -1,17 +1,36 @@
 <script setup>
-import { ref} from 'vue'
+import { ref, watch } from 'vue'
 import {apiAddAnEval, apiGetOneBookAvgEval} from '@/api/evaluation'
 
 
 // Parent's props
 const props = defineProps({
   book: Object,
-  rating: Object
+  rating: Object,
+  formerRating: Number
 })
 
 const userRating = ref(0);
 const defaultImg = '../../../public/no_cover.jpg'
 
+const hasRated = ref(!!props.formerRating);
+
+// Synchronize with formerRating if the value arrives later
+watch(
+  () => props.formerRating,
+  (newVal) => {
+    if (newVal && newVal > 0) {
+      userRating.value = newVal
+    }
+  },
+  { immediate: true } 
+)
+
+const setRating = (star) => {
+  if (!props.formerRating || props.formerRating <= 0) {
+    userRating.value = star
+  }
+}
 
 const onSubmit = async () => {
 try {
@@ -24,6 +43,9 @@ try {
     props.rating.value = resEval.data;
     props.rating.average = resEval.data.average
     props.rating.count = resEval.data.count;
+
+    // L'utilisateur a noté : cache le bouton
+    hasRated.value = true;
 
   } catch (err) {
     console.error("Erreur lors de l'ajout de la note :", err);
@@ -42,26 +64,30 @@ try {
             @error="event => event.target.src = defaultImg"></img>
             </div>
 
+            <p>formerRating = {{ formerRating }}</p>
+              <p>userRating = {{ userRating }}</p>
+
             <div class="rating">
               <form class="review-form" @submit.prevent="onSubmit">
               <div class="star-rating">
-                <i
-                  class="bi"
-                  v-for="star in 5"
-                  :key="star"
-                  :class="star <= userRating ? 'bi-star-fill' : 'bi-star'"
-                  @click="userRating = star"
-                ></i>
+            <i
+              v-for="star in 5"
+              :key="star"
+              class="bi"
+              :class="star <= userRating ? 'bi-star-fill' : 'bi-star'"
+              @click="setRating(star)"
+            ></i>
               </div>
-              <input class="button" type="submit" value="Submit" />
+              <input 
+              v-if="(!props.formerRating || props.formerRating <= 0) && !hasRated"
+              class="button" 
+              type="submit" 
+              value="Submit" />
             </form>
+              <div class="ratingAvg">
+                  <p>Note: {{ rating.average ?? "Pas encore de note"}} | {{ rating.count }} avis</p>
 
-                    <div class="ratingAvg">
-                        <p>Note: {{ rating.average ?? "Pas encore de note"}} | {{ rating.count }} avis</p>
-
-                    </div>
-
-                
+              </div> 
             </div>
 
         </div>

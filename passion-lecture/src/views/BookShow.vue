@@ -2,7 +2,7 @@
 import BookInfo from '@/components/BookShow/BookInfo.vue'
 
 import { apiGetOneBook } from '@/api/books'
-import { apiGetOneBookAvgEval } from '@/api/evaluation'
+import { apiGetOneBookAvgEval, apiGetUserEval } from '@/api/evaluation'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import CommentBox from '@/components/BookShow/Comment/CommentBox.vue'
@@ -11,6 +11,7 @@ const route = useRoute()
 const book = ref()
 const bookId = route.params.id
 const rating = ref([])
+const formerRating = ref(null)
 
 // const user =  ref(null);
 // const userId =  ref(null);
@@ -28,6 +29,15 @@ onMounted(async () => {
 
     const resEval = await apiGetOneBookAvgEval(bookId)
     rating.value = resEval.data
+
+    const resUserEval = await apiGetUserEval(bookId)
+  //formerRating.value = resUserEval.data.note
+  
+    formerRating.value =
+      Array.isArray(resUserEval.data) && resUserEval.data.length > 0
+        ? resUserEval.data[0].note
+        : null
+
   } catch (error) {
     console.error('Erreur lors de la récupération du livre :', error)
   }
@@ -41,7 +51,7 @@ onMounted(async () => {
     </router-link>
 
     <div class="layout">
-      <BookInfo :book="book" :rating="rating" />
+      <BookInfo :book="book" :rating="rating" :former-rating="formerRating" />
       <CommentBox :book="book" />
     </div>
   </div>
