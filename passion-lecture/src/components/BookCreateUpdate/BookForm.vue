@@ -68,7 +68,7 @@ const handleSubmit = () => {
 
                 <div>
                     <label class="block font-semibold mb-1">Auteur</label>
-                    <select v-model="formData.author_id" class="w-full border p-2 rounded bg-gray-100">
+                    <select v-model="formData.authorId" class="w-full border p-2 rounded bg-gray-100">
                         <option value="" disabled>Sélectionnez un auteur</option>
                         <option v-for="auth in authors" :key="auth.id" :value="auth.id">
                             {{ auth.lastName }} {{ auth.firstName }}
@@ -78,7 +78,7 @@ const handleSubmit = () => {
 
                 <div>
                     <label class="block font-semibold mb-1">Catégorie</label>
-                    <select v-model="formData.category_id" class="w-full border p-2 rounded bg-gray-100">
+                    <select v-model="formData.categoryId" class="w-full border p-2 rounded bg-gray-100">
                         <option value="" disabled>Sélectionnez une catégorie</option>
                         <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                             {{ cat.label }}
@@ -87,7 +87,8 @@ const handleSubmit = () => {
                 </div>
 
                 <div class="w-1/3"> <label class="block font-semibold mb-1">Nombres de page</label>
-                    <input v-model="formData.page_count" type="number" class="w-full border p-2 rounded bg-gray-100" />
+                    <input v-model="formData.numberOfPages" type="number"
+                        class="w-full border p-2 rounded bg-gray-100" />
                 </div>
 
                 <div>
@@ -105,7 +106,7 @@ const handleSubmit = () => {
 
                 <div>
                     <label class="block font-semibold mb-1">Année de l'édition</label>
-                    <input v-model="formData.year" type="number" class="w-full border p-2 rounded bg-gray-100" />
+                    <input v-model="formData.editionYear" type="number" class="w-full border p-2 rounded bg-gray-100" />
                 </div>
             </div>
 
@@ -127,7 +128,7 @@ const handleSubmit = () => {
 
         <div class="mt-4">
             <label class="block font-semibold mb-1">Résumé</label>
-            <textarea v-model="formData.summary" rows="5" class="w-full border p-2 rounded bg-gray-100"></textarea>
+            <textarea v-model="formData.abstract" rows="5" class="w-full border p-2 rounded bg-gray-100"></textarea>
         </div>
 
         <div class="flex justify-between mt-8 pt-4 border-t">

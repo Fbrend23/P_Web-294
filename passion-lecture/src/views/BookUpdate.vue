@@ -21,10 +21,10 @@ onMounted(async () => {
             apiGetAllAuthors(),
             apiGetAllCategories(),
         ])
-        bookData.value = bookResponse;
+        bookData.value = bookResponse.data;
         authorsList.value = authorsResponse.data;
         categoriesList.value = categoriesResponse.data;
-        console.log(categoriesList.value)
+
     } catch (e) {
         console.error("Erreur de chargement", e);
     } finally {
@@ -46,6 +46,7 @@ const handleSave = async (dataToSave) => {
         router.push('/books');
     } catch (error) {
         console.error("Erreur lors de la mise à jour", error);
+        alert("Une erreur est survenue lors de la sauvegarde.");
     }
 };
 </script>
