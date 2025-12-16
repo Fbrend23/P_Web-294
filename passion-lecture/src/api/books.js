@@ -15,11 +15,11 @@ export function apiGetOneBook(bookId) {
 }
 
 export function apiAddBook(data) {
-  return (api.post('/books'), { data })
+  return api.post('/books', data)
 }
 
 export function apiEditBook(bookId, data) {
-  return (api.put(`books/${bookId}`), { data })
+  return api.put(`books/${bookId}`, data)
 }
 
 export function apiDeleteBook(bookId) {
