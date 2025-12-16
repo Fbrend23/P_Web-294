@@ -28,16 +28,20 @@ onMounted(async () => {
     // user.value = resUser.data[0]
 
     const resEval = await apiGetOneBookAvgEval(bookId)
-    rating.value = resEval.data
+    //rating.value = resEval.data
+
+    rating.value = {
+      average: resEval.data.average,
+      count: resEval.data.count,
+    }
 
     const resUserEval = await apiGetUserEval(bookId)
-  //formerRating.value = resUserEval.data.note
-  
+    //formerRating.value = resUserEval.data.note
+
     formerRating.value =
       Array.isArray(resUserEval.data) && resUserEval.data.length > 0
         ? resUserEval.data[0].note
         : null
-
   } catch (error) {
     console.error('Erreur lors de la récupération du livre :', error)
   }
