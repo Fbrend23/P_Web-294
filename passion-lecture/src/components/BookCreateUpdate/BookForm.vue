@@ -1,6 +1,5 @@
 <script setup>
-import { apiGetBookImage } from '@/api/books'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
   initialData: {
@@ -26,6 +25,10 @@ const emit = defineEmits(['submit-form', 'cancel'])
 const formData = ref({ ...props.initialData })
 const selectedImage = ref(null)
 
+const selectedPDF = computed(() => {
+  return props.initialData.pdfLink ? props.initialData.pdfLink : null
+})
+
 const imagePreview = computed(() => {
   if (selectedImage.value) {
     return URL.createObjectURL(selectedImage.value)
@@ -43,6 +46,11 @@ const removeImage = () => {
   selectedImage.value = null
   formData.value.image = null
   props.initialData.imagePath = null
+}
+
+const removePDF = () => {
+  props.initialData.pdfLink = null
+  formData.value.pdf = null
 }
 
 // Mise à jour si les données arrivent après le chargement
@@ -124,6 +132,7 @@ const handleSubmit = () => {
         <div>
           <label class="block font-semibold mb-1">Extrait (1 page)</label>
           <div class="flex items-center border p-2 rounded bg-gray-100">
+            <button v-if="selectedPDF" type="button" @click="removePDF">Retirer l'extrait</button>
             <input
               @change="handleExtractUpload"
               type="file"
