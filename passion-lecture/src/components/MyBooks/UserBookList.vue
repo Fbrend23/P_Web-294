@@ -3,14 +3,14 @@ import { ref, onMounted } from 'vue';
 import { apiGetUsersAllBooks } from '@/api/user';
 import router from '@/router';
 import { apiDeleteBook } from '@/api/books';
+import { useAuthStore } from '@/stores/auth';
 
 // Initialiser avec un tableau vide
 const booksList = ref([]);
 const isLoading = ref(false);
 
 onMounted(async () => {
-    // TODO: Remplacer par l'ID venant du store d'auth
-    const userId = 1;
+    const userId = useAuthStore().getUser.id
 
     isLoading.value = true;
     try {

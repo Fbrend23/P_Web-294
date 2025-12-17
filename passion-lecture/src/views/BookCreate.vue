@@ -1,5 +1,7 @@
-<script></script>
+<script setup>
+import BookForm from '@/components/BookCreateUpdate/BookForm.vue';
+</script>
 <template>
-  <p>Create book</p>
+  <BookForm></BookForm>
 </template>
 <style></style>
