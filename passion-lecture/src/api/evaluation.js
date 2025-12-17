@@ -7,3 +7,7 @@ export function apiGetOneBookAvgEval(bookId) {
 export function apiAddAnEval(bookId, value) {
   return api.post(`/books/${bookId}/evaluations`, { note: value })
 }
+
+export function apiGetUserEval(bookId) {
+  return api.get(`/books/${bookId}/evaluations/me`)
+}
