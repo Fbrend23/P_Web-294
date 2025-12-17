@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { apiGetBookImage } from '@/api/books'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
   initialData: {
@@ -23,14 +24,32 @@ const props = defineProps({
 const emit = defineEmits(['submit-form', 'cancel'])
 
 const formData = ref({ ...props.initialData })
-const imagePreview = ref(props.initialData.image)
+const selectedImage = ref(null)
+
+const imagePreview = computed(() => {
+  if (selectedImage.value) {
+    return URL.createObjectURL(selectedImage.value)
+  }
+
+  if (props.initialData.imagePath) {
+    const backendUrl = import.meta.env.VITE_API_URL
+    return `${backendUrl}${props.initialData.imagePath}`
+  }
+
+  return null
+})
+
+const removeImage = () => {
+  selectedImage.value = null
+  formData.value.image = null
+  props.initialData.imagePath = null
+}
 
 // Mise à jour si les données arrivent après le chargement
 watch(
   () => props.initialData,
   (newData) => {
     formData.value = { ...newData }
-    imagePreview.value = newData.image
   },
   { deep: true },
 )
@@ -39,8 +58,8 @@ watch(
 const handleImageUpload = (event) => {
   const file = event.target.files[0]
   if (file) {
+    selectedImage.value = file
     formData.value.image = file
-    imagePreview.value = URL.createObjectURL(file)
   }
 }
 
@@ -109,6 +128,7 @@ const handleSubmit = () => {
               @change="handleExtractUpload"
               type="file"
               class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-gray-300 file:text-gray-700 hover:file:bg-gray-400"
+              accept="application/pdf"
             />
           </div>
         </div>
@@ -140,11 +160,19 @@ const handleSubmit = () => {
           <span v-else class="text-gray-500 text-4xl">✕</span>
         </div>
 
+        <button v-if="imagePreview" @click="removeImage" type="button">Retirer l'image</button>
+
         <label
           class="cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded inline-flex items-center border shadow-sm"
         >
-          <span class="mr-2">↑</span> Ajouter une image
-          <input type="file" class="hidden" accept="image/*" @change="handleImageUpload" />
+          <span class="mr-2">↑</span> <span v-if="imagePreview">Modifier l'image</span>
+          <span v-else>Ajouter une image</span>
+          <input
+            type="file"
+            class="hidden"
+            accept="image/png, image/jpeg, image/jpg"
+            @change="handleImageUpload"
+          />
         </label>
       </div>
     </div>

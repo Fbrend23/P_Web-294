@@ -10,6 +10,14 @@ export function apiGetCustomBooks(page, limit, sort, order, categoryId, search) 
   )
 }
 
+export function apiGetBookImage(imagePath) {
+  return api.get(imagePath)
+}
+
+export function apiGetBookPDF(pdfPath) {
+  return api.get(pdfPath)
+}
+
 export function apiGetOneBook(bookId) {
   return api.get(`books/${bookId}`)
 }
