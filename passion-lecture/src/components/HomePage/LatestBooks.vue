@@ -1,51 +1,53 @@
 <script setup>
-import { apiGetAllBooks } from '@/api/books';
+import { apiGetAllBooks } from '@/api/books'
 import { ref, onMounted } from 'vue'
 
-const books = ref([]);
-const defaultImg = '/public/no_cover.jpg'
+const books = ref([])
+const defaultImg = '/no_cover.jpg'
+
+const getImageUrl = (path) => {
+  if (path) {
+    return `${import.meta.env.VITE_API_URL}${path}`
+  }
+  return defaultImg
+}
 
 onMounted(async () => {
   try {
-    const response = await apiGetAllBooks();
+    const response = await apiGetAllBooks()
 
     // Sort by date in descending order (most recent → oldest)
     const sorted = response.data.data.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    });
+      return new Date(b.createdAt) - new Date(a.createdAt)
+    })
 
     // Keeps the 5 latest
-    books.value = sorted.slice(0, 5);
-
+    books.value = sorted.slice(0, 5)
   } catch (error) {
-    console.error("Error while fetching books:", error);
+    console.error('Error while fetching books:', error)
   }
-});
+})
 </script>
 
 <template>
-<div class="latest">
+  <div class="latest">
     <h2>Derniers ouvrages ajoutés</h2>
 
     <div v-if="books.length === 0">Chargement…</div>
 
-<div class="books-row">
-    <div 
-      class="booksimages" 
-      v-for="book in books" 
-      :key="book.id"
-    >
-      <router-link :to="{ name: 'bookShow', params: { id: book.id } }">
-        <img
-          class="bookimage"
-          :src="book.imagePath && book.imagePath !== '' ? book.imagePath : defaultImg"
-          alt="bookImage"
-          @error="event => event.target.src = defaultImg"
-        />
-        <p>{{ book.title }}</p>
-      </router-link>
+    <div class="books-row">
+      <div class="booksimages" v-for="book in books" :key="book.id">
+        <router-link :to="{ name: 'bookShow', params: { id: book.id } }">
+          <img
+            class="bookimage"
+            :src="getImageUrl(book.imagePath)"
+            alt="bookImage"
+            @error="(event) => (event.target.src = defaultImg)"
+          />
+          <p>{{ book.title }}</p>
+        </router-link>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
