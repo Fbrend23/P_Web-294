@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, defineProps } from 'vue'
-import CommentForm from '@/components/BookShow/Comment/CommentForm.vue'
 import { apiGetAllComments } from '@/api/comments'
 
 

@@ -123,7 +123,7 @@ try {
   border: 2px solid;
   padding: 20px;
   margin: 10px;
-  min-height: 395px;
+  min-height: 435px;
 }
 .ratingAvg{
   text-align: center;

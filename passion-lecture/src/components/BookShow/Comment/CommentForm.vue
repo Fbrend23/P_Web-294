@@ -54,8 +54,10 @@ const onEnter = (e) => {
   placeholder="Votre commentaire"
   @keydown.enter.prevent="onEnter"
       ></textarea>
-      <button type="button" @click="$emit('close')">Annuler</button>
-      <button type="submit">Envoyer</button>
+      <div>
+      <button type="button" class="btn btn-light mt-2 rounded-pill"  @click="$emit('close')">Annuler</button>
+      <button type="submit" class="btn btn-dark mx-2 mt-2 rounded-pill" >Envoyer</button>
+      </div>
     </form>
   </div>
 </template>
@@ -64,8 +66,16 @@ const onEnter = (e) => {
 .comment {
   border: 2px solid;
   padding: 20px;
+  min-height: 395px;
 }
 h2 {
   border-bottom: 1px solid;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+textarea {
+  min-height: 300px;
 }
 </style>
