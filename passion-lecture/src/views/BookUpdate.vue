@@ -61,7 +61,7 @@ const handleSave = async (dataToSave) => {
   }
 
   try {
-    await apiEditBook(bookId, dataToSave)
+    await apiEditBook(bookId, body)
 
     router.push('/mybooks')
   } catch (error) {
