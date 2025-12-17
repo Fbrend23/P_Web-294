@@ -14,6 +14,8 @@
 .home{
     border:2px solid;
     padding: 20px;
+    max-width: 70%;
+    margin: 30px auto;
 }
 h1, p{
     text-align: center;
