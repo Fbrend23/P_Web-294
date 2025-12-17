@@ -26,7 +26,7 @@ const toggleCommenting = () => {
     <!-- Affiche le formulaire par-dessus -->
     <CommentForm v-if="commenting" :book="book" @close="toggleCommenting" class="overlay" />
 
-    <button class="btn btn-dark mx-auto mt-2 rounded-pill" v-if="!commenting" @click="toggleCommenting">Donner son avis</button>
+    <button class="btn btn-dark mx-auto mt-auto rounded-pill" v-if="!commenting" @click="toggleCommenting">Donner son avis</button>
   </div>
 </template>
 
@@ -34,12 +34,11 @@ const toggleCommenting = () => {
 .comment-box {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   border: 2px solid;
   padding: 20px;
   margin-top: 50px;
   margin-right: 50px;
-  min-height: 395px;
+  min-height: 435px;
 }
 h2 {
   border-bottom: 1px solid;
