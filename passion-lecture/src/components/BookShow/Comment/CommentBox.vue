@@ -18,22 +18,27 @@ const toggleCommenting = () => {
 
 <template>
   <div class="comment-box" v-if="book">
-    <h2 v-if="!commenting">Commentaires</h2>
-    <h2 v-else>Ajouter un commentaire</h2>
+
+      <h2 v-if="!commenting">Commentaires</h2>
+      <h2 v-else>Ajouter un commentaire</h2>
 
     <CommentContent v-if="!commenting" :book="book"></CommentContent>
     <!-- Affiche le formulaire par-dessus -->
     <CommentForm v-if="commenting" :book="book" @close="toggleCommenting" class="overlay" />
 
-    <button v-if="!commenting" @click="toggleCommenting">Donner son avis</button>
+    <button class="btn btn-dark mx-auto mt-auto rounded-pill" v-if="!commenting" @click="toggleCommenting">Donner son avis</button>
   </div>
 </template>
 
 <style scoped>
 .comment-box {
+  display: flex;
+  flex-direction: column;
   border: 2px solid;
   padding: 20px;
   margin-top: 50px;
+  margin-right: 50px;
+  min-height: 435px;
 }
 h2 {
   border-bottom: 1px solid;

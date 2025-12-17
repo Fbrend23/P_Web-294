@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, defineProps } from 'vue'
-import CommentForm from '@/components/BookShow/Comment/CommentForm.vue'
 import { apiGetAllComments } from '@/api/comments'
 
 
@@ -36,7 +35,7 @@ onMounted(async () => {
     <!-- comments list-->
     <div v-else class="comments-container">
         <div class="comment" v-for="comment in comments" :key="comment.id">
-            <h4>{{ comment.content }}</h4>
+            <h4 class="comment-text">{{ comment.content }}</h4>
             <p class="username">{{ comment.user.username }}</p>
         </div>
     </div>
@@ -44,24 +43,26 @@ onMounted(async () => {
 
 <style scoped>
 .comments-container {
-    max-height: 300px; /* la hauteur doir peut-être être corrigée*/
+    max-height: 300px; 
     overflow-y: auto;
     padding-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    min-height: 295px;
 }
-
 .comment {
     border: 1px solid;
     padding-left: 10px;
     margin: 10px;
 }
-
+.comment-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 .username {
     text-align: right;
     padding-right: 20px;
 }
-
 h2 {
     border-bottom: 1px solid;
 }
