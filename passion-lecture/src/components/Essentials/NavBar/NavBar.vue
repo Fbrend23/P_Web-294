@@ -37,7 +37,7 @@ function showPopup() {
 nav {
   display: flex;
   flex-direction: row;
-  width: 80vw;
+  width: 85vw;
   justify-content: space-between;
   margin: auto;
   align-items: center;
@@ -52,6 +52,7 @@ nav {
   color: #fafafa;
   text-decoration: none;
 }
+
 .nav-link:hover {
   color: #42d21a;
 }
