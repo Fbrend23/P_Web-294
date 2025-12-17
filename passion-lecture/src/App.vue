@@ -22,5 +22,7 @@ import FooterComponent from './components/Essentials/Footer/FooterComponent.vue'
 }
 main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>

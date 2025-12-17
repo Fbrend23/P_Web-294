@@ -43,11 +43,12 @@ onMounted(async () => {
 
 <style scoped>
 .comments-container {
-    max-height: 300px; /* la hauteur doir peut-être être corrigée*/
+    max-height: 300px; 
     overflow-y: auto;
     padding-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    min-height: 295px;
 }
 .comment {
     border: 1px solid;
