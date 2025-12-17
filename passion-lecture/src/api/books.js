@@ -19,7 +19,11 @@ export function apiAddBook(data) {
 }
 
 export function apiEditBook(bookId, data) {
-  return api.put(`books/${bookId}`, data)
+  return api.put(`books/${bookId}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
 }
 
 export function apiDeleteBook(bookId) {

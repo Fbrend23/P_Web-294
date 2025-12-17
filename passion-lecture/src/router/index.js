@@ -111,13 +111,10 @@ async function checkBookOwnership(to, from, next) {
     if (!book.userId || !currentUserId) {
       return next({ name: 'login' })
     }
-    console.log(book.userId)
-    console.log(currentUserId)
     if (book.userId === currentUserId || isAdmin) {
       next()
     } else {
-      alert(`${book.userId} et ${currentUserId}`)
-      // alert('You do not have permission to edit this publication.')
+      alert('You do not have permission to edit this publication.')
       next({ name: 'home' })
     }
   } catch (error) {
