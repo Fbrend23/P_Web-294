@@ -34,6 +34,7 @@ const toggleCommenting = () => {
   border: 2px solid;
   padding: 20px;
   margin-top: 50px;
+  margin-right: 50px;
 }
 h2 {
   border-bottom: 1px solid;

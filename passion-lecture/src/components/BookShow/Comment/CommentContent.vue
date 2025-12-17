@@ -36,7 +36,7 @@ onMounted(async () => {
     <!-- comments list-->
     <div v-else class="comments-container">
         <div class="comment" v-for="comment in comments" :key="comment.id">
-            <h4>{{ comment.content }}</h4>
+            <h4 class="comment-text">{{ comment.content }}</h4>
             <p class="username">{{ comment.user.username }}</p>
         </div>
     </div>
@@ -50,18 +50,19 @@ onMounted(async () => {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
 .comment {
     border: 1px solid;
     padding-left: 10px;
     margin: 10px;
 }
-
+.comment-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 .username {
     text-align: right;
     padding-right: 20px;
 }
-
 h2 {
     border-bottom: 1px solid;
 }
