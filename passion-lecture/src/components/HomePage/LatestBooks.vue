@@ -3,6 +3,7 @@ import { apiGetAllBooks } from '@/api/books';
 import { ref, onMounted } from 'vue'
 
 const books = ref([]);
+const defaultImg = '/public/no_cover.jpg'
 
 onMounted(async () => {
   try {
@@ -28,24 +29,32 @@ onMounted(async () => {
 
     <div v-if="books.length === 0">Chargement…</div>
 
+<div class="books-row">
     <div 
       class="booksimages" 
       v-for="book in books" 
       :key="book.id"
     >
-    <router-link :to="{ name: 'bookShow', params: { id: book.id } }"> <!--Renvoyer vers la page BookShow-->
-      <img :src="book.imagePath" alt="book image"></img>
-      {{ book.title }}
-    </router-link>
+      <router-link :to="{ name: 'bookShow', params: { id: book.id } }">
+        <img
+          class="bookimage"
+          :src="book.imagePath && book.imagePath !== '' ? book.imagePath : defaultImg"
+          alt="bookImage"
+          @error="event => event.target.src = defaultImg"
+        />
+        <p>{{ book.title }}</p>
+      </router-link>
     </div>
+  </div>
   </div>
 </template>
 
 <style scoped>
 .latest {
+  max-width: 70%;
   border: 2px solid;
   padding: 20px;
-  margin: 10px;
+  margin: 20px auto;
 }
 h2,
 p {
@@ -55,5 +64,32 @@ p {
 }
 a {
   text-decoration: none;
+}
+.books-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  align-items: flex-start; /* important */
+}
+
+.booksimages {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bookimage {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.booksimages p {
+  margin-top: 10px;
+  padding: 0 5px;
+  text-align: center;
+  word-break: break-word;
 }
 </style>
