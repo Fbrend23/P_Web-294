@@ -32,6 +32,11 @@ const setRating = (star) => {
   }
 }
 
+const formatAverage = (avg) => {
+  if (avg === undefined || avg === null) return "Pas encore de note";
+  return avg % 1 === 0 ? avg : avg.toFixed(2); // decimal places if necessary only
+}
+
 const onSubmit = async () => {
 try {
   console.log('Envoi au serveur:', props.book.id, userRating.value);
@@ -82,8 +87,7 @@ try {
               value="Submit" />
             </form>
               <div class="ratingAvg">
-                  <p>Note: {{ rating.average ?? "Pas encore de note"}} | {{ rating.count }} avis</p>
-
+                 <p>Note: {{ formatAverage(rating?.average) }} | {{ rating?.count || 0 }} avis</p>
               </div> 
             </div>
 
