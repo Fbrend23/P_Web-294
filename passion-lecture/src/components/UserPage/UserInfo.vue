@@ -40,15 +40,25 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
-        <h2>{{ userName }}</h2>
-        <p>Inscrit depuis: {{ dateInscription }}</p>
-        <p>Ouvrages créer: {{ numberOfBooksCreated }}</p>
-        <div>
-            <p> Dernier ouvrage ajouté</p>
-            <img :src="bookImage" alt="Image du dernier ouvrage ajouté">
+
+    <div class="container-fluid d-flex flex-column justify-content-between align-items-center ">
+        <div class="card-body text-center">
+            <h3 class="card-title mb-2">{{ userName }}</h3>
+            <p class="text-muted mb-1">Inscrit depuis: <strong>{{ dateInscription }}</strong></p>
+            <p class="mb-3">Ouvrages créés: <strong>{{ numberOfBooksCreated }}</strong></p>
+            <p class="mb-0 text-secondary small">Dernier ouvrage ajouté</p>
         </div>
+
+        <img :src="bookImage" alt="Dernier ouvrage" class="img-fluid rounded preview-img" />
+
     </div>
+
 </template>
 
-<style></style>
+<style scoped>
+.preview-img {
+    max-height: 200px;
+    width: auto;
+    object-fit: cover;
+}
+</style>

@@ -8,7 +8,9 @@ import FooterComponent from './components/Essentials/Footer/FooterComponent.vue'
     <header>
       <NavBar />
     </header>
-    <main><RouterView /></main>
+    <main class="bg-dark-subtle my-4 border border-black">
+      <RouterView />
+    </main>
 
     <FooterComponent />
   </div>
@@ -20,9 +22,12 @@ import FooterComponent from './components/Essentials/Footer/FooterComponent.vue'
   flex-direction: column;
   min-height: 100vh;
 }
+
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 80vw;
+  margin: auto;
 }
 </style>
