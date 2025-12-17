@@ -20,9 +20,10 @@ footer {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
-  margin: 0;
+  margin: auto;
   padding: 10px 0px;
+  width: 80vw;
+  height: 80px;
 }
 
 #github {
