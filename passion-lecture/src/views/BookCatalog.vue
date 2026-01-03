@@ -14,28 +14,22 @@ const filters = reactive({
 })
 </script>
 <template>
-  <div id="content">
-    <BookFilter
-      :filters="filters"
-      @change-filters="
-        (newFilters) => {
-          filters = newFilters
-          console.log(filters)
-        }
-      "
-    />
-    <div id="list">
-      <SearchBar :filters="filters" />
-      <BookList :filters="filters" />
+  <div class="container my-4">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <BookFilter :filters="filters" @change-filters="
+          (newFilters) => {
+            filters = newFilters
+            console.log(filters)
+          }
+        " />
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex flex-column gap-3">
+          <SearchBar :filters="filters" />
+          <BookList :filters="filters" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
-<style scoped>
-#content {
-  margin: auto;
-  width: 80vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-</style>

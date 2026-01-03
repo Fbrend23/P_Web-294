@@ -47,14 +47,25 @@ async function register() {
 }
 </script>
 <template>
-  <h2>S'enregistrer</h2>
-  <form @submit.prevent="register">
-    <label for="username">Nom d'utilisateur</label>
-    <input type="text" name="username" v-model="username" />
-    <label for="password">Mot de passe</label>
-    <input type="password" name="password" v-model="password" />
-    <p v-for="error in errors" class="error">{{ error }}</p>
-    <button type="submit">Submit</button>
-  </form>
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow border-0 p-4" style="width: 100%; max-width: 400px;">
+      <h2 class="card-title text-center mb-4 display-6">S'enregistrer</h2>
+      <form @submit.prevent="register">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nom d'utilisateur</label>
+          <input type="text" class="form-control" v-model="username" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Mot de passe</label>
+          <input type="password" class="form-control" v-model="password" required />
+        </div>
+        <div v-if="errors.length > 0" class="alert alert-danger">
+          <ul class="mb-0 ps-3">
+            <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+          </ul>
+        </div>
+        <button type="submit" class="btn btn-dark w-100 rounded-pill py-2 mt-2 fw-bold">Créer un compte</button>
+      </form>
+    </div>
+  </div>
 </template>
-<style></style>
