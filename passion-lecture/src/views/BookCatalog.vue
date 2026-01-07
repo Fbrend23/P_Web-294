@@ -22,7 +22,6 @@ const filters = reactive({
           @change-filters="
             (newFilters) => {
               filters = newFilters
-              console.log(filters)
             }
           "
         />

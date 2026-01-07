@@ -11,22 +11,32 @@ const maxPage = ref(1)
 
 const page = ref(1)
 
+const loading = ref(true)
+
 onMounted(async () => {
   // fetchBooks()
   watchEffect(async () => {
-    const { sort, category, search } = props.filters
-    books.value = []
-    const response = await apiGetCustomBooks(
-      page.value,
-      10,
-      sort.sort,
-      sort.order,
-      category,
-      search,
-    )
-    maxPage.value = response.data.meta.lastPage
-    page.value <= maxPage ? page : 1
-    books.value = response.data.data
+    try {
+      const { sort, category, search } = props.filters
+      loading.value = true
+      books.value = []
+      const response = await apiGetCustomBooks(
+        page.value,
+        10,
+        sort.sort,
+        sort.order,
+        category,
+        search,
+      )
+      maxPage.value = response.data.meta.lastPage
+      page.value = page.value <= maxPage.value ? page.value : 1
+      books.value = response.data.data
+    } catch (error) {
+      console.error('Error when fetching data : ', error)
+      alert("Erreur lors de l'obtention des livres")
+    } finally {
+      loading.value = false
+    }
   })
 })
 </script>
@@ -45,7 +55,7 @@ onMounted(async () => {
             </tr>
           </thead>
           <tbody>
-            <tr v-if="books.length === 0">
+            <tr v-if="loading">
               <td colspan="5" class="text-center py-4 text-muted">Chargement...</td>
             </tr>
             <BookDisplay
@@ -54,6 +64,9 @@ onMounted(async () => {
               :key="index"
               :bookInfo="book"
             ></BookDisplay>
+            <tr v-if="books.length === 0">
+              <td colspan="5" class="text-center py-4 text-muted">Aucun résultat</td>
+            </tr>
           </tbody>
         </table>
       </div>
