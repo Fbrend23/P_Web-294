@@ -20,8 +20,9 @@ async function logout() {
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
         <p>{{ auth.user.username }}</p>
       </div>
-      <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link">Voir son
-        profil</router-link>
+      <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link"
+        >Voir son profil</router-link
+      >
     </div>
     <div id="parameters">
       <router-link :to="{ name: 'userBook' }" class="link">
@@ -102,6 +103,6 @@ async function logout() {
 }
 
 p {
-  margin: 0
+  margin: 0;
 }
 </style>

@@ -42,11 +42,17 @@ onMounted(async () => {
 
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
         <div class="col" v-for="book in books" :key="book.id">
-          <router-link :to="{ name: 'bookShow', params: { id: book.id } }"
-            class="text-decoration-none text-dark d-flex flex-column align-items-center h-100">
-            <img class="img-fluid rounded shadow-sm mb-2" :src="getImageUrl(book.imagePath)" alt="Book Cover"
-              style="width: 100%; height: 200px; object-fit: cover;"
-              @error="(event) => (event.target.src = defaultImg)" />
+          <router-link
+            :to="{ name: 'bookShow', params: { id: book.id } }"
+            class="text-decoration-none text-dark d-flex flex-column align-items-center h-100"
+          >
+            <img
+              class="img-fluid rounded shadow-sm mb-2"
+              :src="getImageUrl(book.imagePath)"
+              alt="Book Cover"
+              style="width: 100%; height: 200px; object-fit: cover"
+              @error="(event) => (event.target.src = defaultImg)"
+            />
             <p class="text-center fw-semibold small px-1 mb-0">{{ book.title }}</p>
           </router-link>
         </div>

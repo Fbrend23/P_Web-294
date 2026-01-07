@@ -31,8 +31,7 @@ const onEnter = (e) => {
     const end = textarea.selectionEnd
 
     // Insérer un \n à la position du curseur
-    textarea.value =
-      textarea.value.substring(0, start) + '\n' + textarea.value.substring(end)
+    textarea.value = textarea.value.substring(0, start) + '\n' + textarea.value.substring(end)
 
     // Remettre le curseur après le saut de ligne
     textarea.selectionStart = textarea.selectionEnd = start + 1
@@ -43,7 +42,6 @@ const onEnter = (e) => {
     submitComment()
   }
 }
-
 </script>
 
 <template>
@@ -51,12 +49,14 @@ const onEnter = (e) => {
     <form @submit.prevent="submitComment">
       <textarea
         v-model="commentText"
-  placeholder="Votre commentaire"
-  @keydown.enter.prevent="onEnter"
+        placeholder="Votre commentaire"
+        @keydown.enter.prevent="onEnter"
       ></textarea>
       <div>
-      <button type="button" class="btn btn-light mt-2 rounded-pill"  @click="$emit('close')">Annuler</button>
-      <button type="submit" class="btn btn-dark mx-2 mt-2 rounded-pill" >Envoyer</button>
+        <button type="button" class="btn btn-light mt-2 rounded-pill" @click="$emit('close')">
+          Annuler
+        </button>
+        <button type="submit" class="btn btn-dark mx-2 mt-2 rounded-pill">Envoyer</button>
       </div>
     </form>
   </div>
