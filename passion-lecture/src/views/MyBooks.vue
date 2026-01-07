@@ -1,6 +1,5 @@
 <script setup>
-import UserBookList from '@/components/MyBooks/UserBookList.vue';
-
+import UserBookList from '@/components/MyBooks/UserBookList.vue'
 </script>
 <template>
   <div class="container my-5">

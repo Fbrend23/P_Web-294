@@ -17,12 +17,15 @@ const filters = reactive({
   <div class="container my-4">
     <div class="row g-4">
       <div class="col-md-3">
-        <BookFilter :filters="filters" @change-filters="
-          (newFilters) => {
-            filters = newFilters
-            console.log(filters)
-          }
-        " />
+        <BookFilter
+          :filters="filters"
+          @change-filters="
+            (newFilters) => {
+              filters = newFilters
+              console.log(filters)
+            }
+          "
+        />
       </div>
       <div class="col-md-9">
         <div class="d-flex flex-column gap-3">

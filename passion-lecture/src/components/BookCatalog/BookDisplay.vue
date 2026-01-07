@@ -8,12 +8,17 @@ const book = props.bookInfo
 <template>
   <tr>
     <td>
-      <router-link :to="{ name: 'bookShow', params: { id: book.id } }" class="text-decoration-none fw-bold text-dark">
+      <router-link
+        :to="{ name: 'bookShow', params: { id: book.id } }"
+        class="text-decoration-none fw-bold text-dark"
+      >
         {{ book.title }}
       </router-link>
     </td>
     <td>{{ book.author.firstName }} {{ book.author.lastName }}</td>
-    <td><span class="badge bg-info text-dark">{{ book.category.label }}</span></td>
+    <td>
+      <span class="badge bg-info text-dark">{{ book.category.label }}</span>
+    </td>
     <td class="text-muted">{{ book.user.username }}</td>
     <td class="text-muted small">
       {{

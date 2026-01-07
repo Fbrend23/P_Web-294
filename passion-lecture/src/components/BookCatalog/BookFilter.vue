@@ -34,10 +34,17 @@ onMounted(async () => {
       </div>
       <div class="mb-3">
         <label for="select-category" class="form-label fw-semibold">Catégorie</label>
-        <select name="category" id="select-category" class="form-select" v-model="props.filters.category">
+        <select
+          name="category"
+          id="select-category"
+          class="form-select"
+          v-model="props.filters.category"
+        >
           <option value="">Sélectionnez une catégorie</option>
           <option v-if="categories.length === 0" value="" disabled>Chargement...</option>
-          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.label }}</option>
+          <option v-for="category in categories" :key="category.id" :value="category.id">
+            {{ category.label }}
+          </option>
         </select>
       </div>
     </div>
