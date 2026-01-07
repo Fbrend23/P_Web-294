@@ -30,7 +30,8 @@ onUnmounted(() => {
 </script>
 <template>
   <nav>
-    <h1>Passion lecture</h1>
+    <router-link :to="{ name: 'home' }"><h1>Passion lecture</h1></router-link>
+
     <div class="nav-div">
       <router-link :to="{ name: 'home' }" class="nav-link">Accueil</router-link>
       <router-link :to="{ name: 'bookCatalogue' }" class="nav-link">Catalogue</router-link>
@@ -60,7 +61,7 @@ nav {
   align-items: center;
   background-color: #1c1c1c;
   color: #fafafa;
-  padding: 0px 30px;
+  padding: 10px 20px 10px 30px;
   border-radius: 50px;
   margin-top: 20px;
 }
@@ -104,5 +105,19 @@ button {
 
 button:hover {
   cursor: pointer;
+}
+
+h1 {
+  font-size: 2rem;
+  color: white;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
 }
 </style>
