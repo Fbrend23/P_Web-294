@@ -28,8 +28,8 @@ onMounted(async () => {
         <select name="sort" id="select-sort" class="form-select" v-model="props.filters.sort">
           <option :value="{ sort: 'title', order: 'asc' }">Alphabétique</option>
           <option :value="{ sort: 'title', order: 'desc' }">Alphabétique inverse</option>
-          <option :value="{ sort: 'createdAt', order: 'desc' }">Nouveaux</option>
-          <option :value="{ sort: 'createdAt', order: 'asc' }">Anciens</option>
+          <option :value="{ sort: 'created_at', order: 'desc' }">Nouveaux</option>
+          <option :value="{ sort: 'created_at', order: 'asc' }">Anciens</option>
         </select>
       </div>
       <div class="mb-3">
