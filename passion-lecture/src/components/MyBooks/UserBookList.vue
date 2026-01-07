@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { apiGetUsersAllBooks } from '@/api/user';
-import router from '@/router';
 import { apiDeleteBook } from '@/api/books';
 import { useAuthStore } from '@/stores/auth';
 
@@ -44,44 +43,37 @@ async function handleDelete(bookId) {
 </script>
 
 <template>
-    <div>
-        <p v-if="isLoading">Chargement...</p>
+    <div class="h-100 d-flex flex-column">
+        <div v-if="isLoading" class="text-center my-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p class="mt-2 text-muted">Chargement...</p>
+        </div>
 
-        <ul v-else>
-            <li v-for="book in booksList" :key="book.id" class="book-item">
-                <p>
-                    <span class="fw-bold">{{ book.id }}. </span>
-                    {{ book.title }}
-                </p>
+        <div v-else-if="booksList.length > 0" class="list-group shadow-sm">
+            <div v-for="book in booksList" :key="book.id"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <div class="text-truncate me-3">
+                    <span class="badge bg-secondary me-2">#{{ book.id }}</span>
+                    <span class="h6 mb-0 text-dark">{{ book.title }}</span>
+                </div>
 
-                <div class="actions">
-                    <router-link :to="{ name: 'EditBook', params: { id: book.id } }"> <button
-                            class="btn btn-outline-secondary btn-sm" title="Modifier">
-                            <i class="bi bi-pencil"></i>
-                        </button></router-link>
+                <div class="btn-group flex-shrink-0">
+                    <router-link :to="{ name: 'EditBook', params: { id: book.id } }"
+                        class="btn btn-outline-secondary btn-sm" title="Modifier">
+                        <i class="bi bi-pencil"></i>
+                    </router-link>
 
                     <button class="btn btn-outline-danger btn-sm" @click="handleDelete(book.id)" title="Supprimer">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
 
-        <p v-if="!isLoading && booksList.length === 0">Aucun livre trouvé.</p>
+        <div v-if="!isLoading && booksList.length === 0" class="alert alert-info text-center mt-3">
+            Aucun livre trouvé.
+        </div>
     </div>
 </template>
-
-<style scoped>
-.book-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.actions button {
-    margin-left: 5px;
-}
-</style>

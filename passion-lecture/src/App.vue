@@ -1,33 +1,17 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import NavBar from '@/components/Essentials/NavBar/NavBar.vue'
 import FooterComponent from './components/Essentials/Footer/FooterComponent.vue'
 </script>
 <template>
-  <div id="body">
+  <div id="body" class="d-flex flex-column min-vh-100">
     <header>
       <NavBar />
     </header>
-    <main class="bg-dark-subtle my-4 border border-black">
+    <main class="container flex-grow-1 my-4 border border-black bg-dark-subtle">
       <RouterView />
     </main>
 
     <FooterComponent />
   </div>
 </template>
-
-<style scoped>
-#body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 80vw;
-  margin: auto;
-}
-</style>

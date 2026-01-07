@@ -52,9 +52,12 @@ const handleSave = async (dataToSave) => {
   body.append('editionYear', dataToSave.editionYear)
   body.append('editor', dataToSave.editor)
   body.append('numberOfPages', dataToSave.numberOfPages)
+  body.append('removeImage', dataToSave.removeImage)
+  body.append('removePDF', dataToSave.removePDF)
 
   if (dataToSave.image) {
     body.append('image', dataToSave.image)
+  } else {
   }
   if (dataToSave.pdf) {
     body.append('pdf', dataToSave.pdf)

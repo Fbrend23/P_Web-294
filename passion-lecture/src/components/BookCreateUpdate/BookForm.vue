@@ -22,16 +22,23 @@ const props = defineProps({
 
 const emit = defineEmits(['submit-form', 'cancel'])
 
-const formData = ref({ ...props.initialData })
+const formData = ref({ ...props.initialData, removeImage: false, removePDF: false })
 const selectedImage = ref(null)
 
 const selectedPDF = computed(() => {
+  if (formData.value.removePDF) {
+    return null
+  }
   return props.initialData.pdfLink ? props.initialData.pdfLink : null
 })
 
 const imagePreview = computed(() => {
   if (selectedImage.value) {
     return URL.createObjectURL(selectedImage.value)
+  }
+
+  if (formData.value.removeImage) {
+    return null
   }
 
   if (props.initialData.imagePath) {
@@ -45,19 +52,21 @@ const imagePreview = computed(() => {
 const removeImage = () => {
   selectedImage.value = null
   formData.value.image = null
-  props.initialData.imagePath = null
+  // props.initialData.imagePath = null
+  formData.value.removeImage = true
 }
 
 const removePDF = () => {
-  props.initialData.pdfLink = null
+  // props.initialData.pdfLink = null
   formData.value.pdf = null
+  formData.value.removePDF = true
 }
 
 // Mise à jour si les données arrivent après le chargement
 watch(
   () => props.initialData,
   (newData) => {
-    formData.value = { ...newData }
+    formData.value = { ...newData, removeImage: false, removePDF: false }
   },
   { deep: true },
 )
@@ -68,6 +77,7 @@ const handleImageUpload = (event) => {
   if (file) {
     selectedImage.value = file
     formData.value.image = file
+    formData.value.removeImage = false
   }
 }
 
@@ -75,34 +85,38 @@ const handleImageUpload = (event) => {
 const handleExtractUpload = (event) => {
   const file = event.target.files[0]
   formData.value.pdf = file
+  formData.value.removePDF = false
 }
 
 const handleSubmit = () => {
+  console.log(formData.value.removeImage)
+  console.log(formData.value.removePDF)
   emit('submit-form', formData.value)
 }
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit" class="p-6 bg-white rounded shadow-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">
+  <form @submit.prevent="handleSubmit" class="card shadow border-0 p-4">
+    <h2 class="card-title text-center mb-4 display-6 fw-bold">
       {{ isEditing ? 'Modifier un ouvrage' : 'Ajouter un ouvrage' }}
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="md:col-span-2 space-y-4">
-        <div>
-          <label class="block font-semibold mb-1">Titre</label>
+    <div class="row g-4">
+      <div class="col-md-8">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Titre</label>
           <input
             v-model="formData.title"
             type="text"
-            class="w-full border p-2 rounded bg-gray-100"
+            class="form-control bg-light"
             placeholder="Titre du livre"
+            required
           />
         </div>
 
-        <div>
-          <label class="block font-semibold mb-1">Auteur</label>
-          <select v-model="formData.authorId" class="w-full border p-2 rounded bg-gray-100">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Auteur</label>
+          <select v-model="formData.authorId" class="form-select bg-light" required>
             <option value="" disabled>Sélectionnez un auteur</option>
             <option v-for="auth in authors" :key="auth.id" :value="auth.id">
               {{ auth.lastName }} {{ auth.firstName }}
@@ -110,9 +124,9 @@ const handleSubmit = () => {
           </select>
         </div>
 
-        <div>
-          <label class="block font-semibold mb-1">Catégorie</label>
-          <select v-model="formData.categoryId" class="w-full border p-2 rounded bg-gray-100">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Catégorie</label>
+          <select v-model="formData.categoryId" class="form-select bg-light" required>
             <option value="" disabled>Sélectionnez une catégorie</option>
             <option v-for="cat in categories" :key="cat.id" :value="cat.id">
               {{ cat.label }}
@@ -120,89 +134,103 @@ const handleSubmit = () => {
           </select>
         </div>
 
-        <div class="w-1/3">
-          <label class="block font-semibold mb-1">Nombres de page</label>
+        <div class="mb-3 w-50">
+          <label class="form-label fw-bold">Nombres de page</label>
           <input
             v-model="formData.numberOfPages"
             type="number"
-            class="w-full border p-2 rounded bg-gray-100"
+            class="form-control bg-light"
+            min="1"
           />
         </div>
 
-        <div>
-          <label class="block font-semibold mb-1">Extrait (1 page)</label>
-          <div class="flex items-center border p-2 rounded bg-gray-100">
-            <button v-if="selectedPDF" type="button" @click="removePDF">Retirer l'extrait</button>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Extrait (1 page)</label>
+          <div class="input-group">
+            <button
+              v-if="selectedPDF"
+              type="button"
+              class="btn btn-outline-danger"
+              @click="removePDF"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
             <input
               @change="handleExtractUpload"
               type="file"
-              class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-gray-300 file:text-gray-700 hover:file:bg-gray-400"
+              class="form-control bg-light"
               accept="application/pdf"
             />
           </div>
         </div>
 
-        <div>
-          <label class="block font-semibold mb-1">Editeur</label>
-          <input
-            v-model="formData.editor"
-            type="text"
-            class="w-full border p-2 rounded bg-gray-100"
-          />
+        <div class="mb-3">
+          <label class="form-label fw-bold">Editeur</label>
+          <input v-model="formData.editor" type="text" class="form-control bg-light" />
         </div>
 
-        <div>
-          <label class="block font-semibold mb-1">Année de l'édition</label>
-          <input
-            v-model="formData.editionYear"
-            type="number"
-            class="w-full border p-2 rounded bg-gray-100"
-          />
+        <div class="mb-3">
+          <label class="form-label fw-bold">Année de l'édition</label>
+          <input v-model="formData.editionYear" type="number" class="form-control bg-light" />
         </div>
       </div>
 
-      <div class="md:col-span-1 flex flex-col items-center">
+      <div class="col-md-4 d-flex flex-column align-items-center">
         <div
-          class="w-full aspect-[3/4] bg-gray-300 flex items-center justify-center border rounded mb-4 overflow-hidden relative"
+          class="card mb-3 w-100 bg-light border d-flex justify-content-center align-items-center position-relative overflow-hidden user-select-none"
+          style="aspect-ratio: 3/4"
         >
-          <img v-if="imagePreview" :src="imagePreview" class="w-full h-full object-cover" />
-          <span v-else class="text-gray-500 text-4xl">✕</span>
+          <img
+            v-if="imagePreview"
+            :src="imagePreview"
+            class="w-100 h-100 object-fit-cover"
+            alt="Preview"
+          />
+          <span v-else class="text-muted fs-1"><i class="bi bi-image"></i></span>
         </div>
 
-        <button v-if="imagePreview" @click="removeImage" type="button">Retirer l'image</button>
-
-        <label
-          class="cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded inline-flex items-center border shadow-sm"
+        <button
+          v-if="imagePreview"
+          @click="removeImage"
+          type="button"
+          class="btn btn-outline-danger btn-sm mb-2 w-100"
         >
-          <span class="mr-2">↑</span> <span v-if="imagePreview">Modifier l'image</span>
-          <span v-else>Ajouter une image</span>
-          <input
-            type="file"
-            class="hidden"
-            accept="image/png, image/jpeg, image/jpg"
-            @change="handleImageUpload"
-          />
-        </label>
+          Retirer l'image
+        </button>
+
+        <div class="w-100">
+          <label
+            class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2"
+            style="cursor: pointer"
+          >
+            <i class="bi bi-upload"></i>
+            <span v-if="imagePreview">Modifier l'image</span>
+            <span v-else>Ajouter une image</span>
+            <input
+              type="file"
+              class="d-none"
+              accept="image/png, image/jpeg, image/jpg"
+              @change="handleImageUpload"
+            />
+          </label>
+        </div>
       </div>
     </div>
 
     <div class="mt-4">
-      <label class="block font-semibold mb-1">Résumé</label>
-      <textarea
-        v-model="formData.abstract"
-        rows="5"
-        class="w-full border p-2 rounded bg-gray-100"
-      ></textarea>
+      <label class="form-label fw-bold">Résumé</label>
+      <textarea v-model="formData.abstract" rows="5" class="form-control bg-light"></textarea>
     </div>
 
-    <div class="flex justify-between mt-8 pt-4 border-t">
-      <button type="button" @click="$emit('cancel')" class="text-black font-semibold py-2 px-6">
+    <div class="d-flex justify-content-between mt-5 pt-3 border-top">
+      <button
+        type="button"
+        @click="$emit('cancel')"
+        class="btn btn-link text-dark text-decoration-none fw-semibold"
+      >
         Annuler
       </button>
-      <button
-        type="submit"
-        class="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-8 rounded-full shadow"
-      >
+      <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold shadow-sm">
         Sauvegarder
       </button>
     </div>

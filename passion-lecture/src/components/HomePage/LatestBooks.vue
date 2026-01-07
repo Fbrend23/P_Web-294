@@ -30,68 +30,27 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="latest">
-    <h2>Derniers ouvrages ajoutés</h2>
+  <div class="container my-5">
+    <div class="card w-75 mx-auto border border-2 border-dark rounded-4 p-4 shadow-sm bg-body">
+      <h2 class="text-center mb-4 display-6 fw-bold">Derniers ouvrages ajoutés</h2>
 
-    <div v-if="books.length === 0">Chargement…</div>
+      <div v-if="books.length === 0" class="text-center my-5">
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
 
-    <div class="books-row">
-      <div class="booksimages" v-for="book in books" :key="book.id">
-        <router-link :to="{ name: 'bookShow', params: { id: book.id } }">
-          <img
-            class="bookimage"
-            :src="getImageUrl(book.imagePath)"
-            alt="bookImage"
-            @error="(event) => (event.target.src = defaultImg)"
-          />
-          <p>{{ book.title }}</p>
-        </router-link>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+        <div class="col" v-for="book in books" :key="book.id">
+          <router-link :to="{ name: 'bookShow', params: { id: book.id } }"
+            class="text-decoration-none text-dark d-flex flex-column align-items-center h-100">
+            <img class="img-fluid rounded shadow-sm mb-2" :src="getImageUrl(book.imagePath)" alt="Book Cover"
+              style="width: 100%; height: 200px; object-fit: cover;"
+              @error="(event) => (event.target.src = defaultImg)" />
+            <p class="text-center fw-semibold small px-1 mb-0">{{ book.title }}</p>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.latest {
-  max-width: 70%;
-  border: 2px solid;
-  padding: 20px;
-  margin: 20px auto;
-}
-h2,
-p {
-  text-align: center;
-  padding: 20px;
-  padding: 20px;
-}
-a {
-  text-decoration: none;
-}
-.books-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: nowrap;
-  align-items: flex-start; /* important */
-}
-
-.booksimages {
-  width: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bookimage {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.booksimages p {
-  margin-top: 10px;
-  padding: 0 5px;
-  text-align: center;
-  word-break: break-word;
-}
-</style>

@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, onMounted, ref } from 'vue'
+import { defineProps } from 'vue'
 const props = defineProps(['filters'])
 const search = ''
 
@@ -8,16 +8,9 @@ function searchBooks(search) {
 }
 </script>
 <template>
-  <input type="text" @keyup.enter="searchBooks(search)" placehoder="Rechercher" v-model="search" />
-  <button @click="searchBooks(search)">rechercher</button>
+  <div class="input-group">
+    <input type="text" class="form-control" @keyup.enter="searchBooks(search)" placeholder="Rechercher" v-model="search"
+      aria-label="Recherche" />
+    <button class="btn btn-primary" type="button" @click="searchBooks(search)">Rechercher</button>
+  </div>
 </template>
-<style scoped>
-input {
-  color: black;
-}
-
-::placeholder {
-  color: red;
-  opacity: 1;
-}
-</style>

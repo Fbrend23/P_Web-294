@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, defineProps } from 'vue'
+import { defineProps } from 'vue'
 
 const props = defineProps(['bookInfo'])
 
@@ -8,14 +8,14 @@ const book = props.bookInfo
 <template>
   <tr>
     <td>
-      <router-link :to="{ name: 'bookShow', params: { id: book.id } }">
+      <router-link :to="{ name: 'bookShow', params: { id: book.id } }" class="text-decoration-none fw-bold text-dark">
         {{ book.title }}
       </router-link>
     </td>
     <td>{{ book.author.firstName }} {{ book.author.lastName }}</td>
-    <td>{{ book.category.label }}</td>
-    <td>{{ book.user.username }}</td>
-    <td>
+    <td><span class="badge bg-info text-dark">{{ book.category.label }}</span></td>
+    <td class="text-muted">{{ book.user.username }}</td>
+    <td class="text-muted small">
       {{
         new Date(book.createdAt).toLocaleString('fr-FR', {
           day: '2-digit',

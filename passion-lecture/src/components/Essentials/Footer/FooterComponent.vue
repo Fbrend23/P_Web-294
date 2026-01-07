@@ -1,60 +1,29 @@
 <script setup></script>
 <template>
-  <footer>
-    <p>© ETML - P_Web-294</p>
-    <div id="github">
-      <img src="@/assets/icons/github-mark-white.svg" alt="Github Icon" />
-      <div id="github-accounts">
-        <a href="https://github.com/fbrend23" target="_blanck">Brendan Fleurdelys</a>
-        <a href="https://github.com/NovaNoctua" target="_blanck">Maël Naudet</a>
-        <a href="https://github.com/mina-etml" target="_blanck">Mina Morier</a>
+  <footer class="bg-dark text-light py-3 mt-auto container rounded mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-around align-items-center h-100">
+      <p class="mb-0 fs-5">© ETML - P_Web-294</p>
+      <div id="github" class="d-flex align-items-center mt-3 mt-md-0">
+        <img src="@/assets/icons/github-mark-white.svg" alt="Github Icon" style="height: 50px;" class="mx-3" />
+        <div id="github-accounts" class="d-flex flex-column align-items-start">
+          <a href="https://github.com/fbrend23" target="_blank"
+            class="text-light text-decoration-none footer-link">Brendan Fleurdelys</a>
+          <a href="https://github.com/NovaNoctua" target="_blank"
+            class="text-light text-decoration-none footer-link">Maël Naudet</a>
+          <a href="https://github.com/mina-etml" target="_blank"
+            class="text-light text-decoration-none footer-link">Mina Morier</a>
+        </div>
       </div>
     </div>
   </footer>
 </template>
+
 <style scoped>
-footer {
-  background-color: #1c1c1c;
-  color: #fafafa;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin: auto;
-  padding: 10px 0px;
-  width: 80vw;
-  height: 80px;
-}
-
-#github {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 10px 0px;
-}
-
-#github-accounts {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-p {
-  font-size: 1.125rem;
-}
-
-a {
-  color: #fafafa;
-  text-decoration: none;
+.footer-link {
   font-size: 0.9rem;
 }
 
-a:hover {
-  color: #42d21a;
-}
-
-img {
-  height: 50px;
-  margin: 0px 20px;
+.footer-link:hover {
+  color: #42d21a !important;
 }
 </style>
