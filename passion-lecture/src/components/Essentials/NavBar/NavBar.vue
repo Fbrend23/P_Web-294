@@ -27,7 +27,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('click', handleClickOutside)
 })
-
 </script>
 <template>
   <nav>

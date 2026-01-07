@@ -9,8 +9,14 @@ function searchBooks(search) {
 </script>
 <template>
   <div class="input-group">
-    <input type="text" class="form-control" @keyup.enter="searchBooks(search)" placeholder="Rechercher" v-model="search"
-      aria-label="Recherche" />
+    <input
+      type="text"
+      class="form-control"
+      @keyup.enter="searchBooks(search)"
+      placeholder="Rechercher"
+      v-model="search"
+      aria-label="Recherche"
+    />
     <button class="btn btn-primary" type="button" @click="searchBooks(search)">Rechercher</button>
   </div>
 </template>
