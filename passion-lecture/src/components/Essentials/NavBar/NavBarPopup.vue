@@ -8,9 +8,15 @@ const auth = useAuthStore()
 const emit = defineEmits(['close-popup'])
 
 async function logout() {
-  emit('close-popup')
-  await auth.logout()
-  router.push('/')
+  try {
+    emit('close-popup')
+    await auth.logout()
+  } catch (error) {
+    console.error('Error when loging out : ', error)
+    alert('Erreur lors de la déconnexion')
+  } finally {
+    router.push('/')
+  }
 }
 </script>
 <template>
