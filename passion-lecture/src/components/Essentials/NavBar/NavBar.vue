@@ -2,16 +2,32 @@
 import { ref, computed } from 'vue'
 import NavBarPopup from './NavBarPopup.vue'
 import { useAuthStore } from '@/stores/auth'
-
+import { onMounted, onUnmounted } from 'vue'
 const auth = useAuthStore()
 
 const connected = computed(() => auth.isAuthenticated)
 
 const popup = ref(false)
-
+const popupContainer = ref(null)
 function showPopup() {
   popup.value = !popup.value
 }
+
+const handleClickOutside = (event) => {
+  // Si le popup est ouvert ET que l'élément cliqué n'est PAS dans popupContainer
+  if (popup.value && popupContainer.value && !popupContainer.value.contains(event.target)) {
+    popup.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('click', handleClickOutside)
+})
+
 </script>
 <template>
   <nav>
@@ -26,12 +42,14 @@ function showPopup() {
     </div>
     <div v-else class="nav-div">
       <router-link :to="{ name: 'bookCreate' }" class="nav-btn">+ Créer</router-link>
-      <button @click="showPopup">
+      <button @click.stop="showPopup">
         <img src="@/assets/icons/profile-icon.svg" alt="profile" />
       </button>
     </div>
   </nav>
-  <NavBarPopup v-if="popup" @close-popup="showPopup"></NavBarPopup>
+  <div ref="popupContainer">
+    <NavBarPopup v-if="popup" @close-popup="showPopup"></NavBarPopup>
+  </div>
 </template>
 <style scoped>
 nav {
