@@ -25,7 +25,7 @@ onMounted(async () => {
       search,
     )
     maxPage.value = response.data.meta.lastPage
-    page.value <= maxPage ? page : 1
+    page.value = page.value <= maxPage.value ? page.value : 1
     books.value = response.data.data
   })
 })
@@ -48,26 +48,39 @@ onMounted(async () => {
             <tr v-if="books.length === 0">
               <td colspan="5" class="text-center py-4 text-muted">Chargement...</td>
             </tr>
-            <BookDisplay v-else v-for="(book, index) in books" :key="index" :bookInfo="book"></BookDisplay>
+            <BookDisplay
+              v-else
+              v-for="(book, index) in books"
+              :key="index"
+              :bookInfo="book"
+            ></BookDisplay>
           </tbody>
         </table>
       </div>
     </div>
   </div>
   <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
-    <button class="btn btn-primary" :disabled="page === 1" @click="
-      () => {
-        page = page === 1 ? page : page - 1
-      }
-    ">
+    <button
+      class="btn btn-primary"
+      :disabled="page === 1"
+      @click="
+        () => {
+          page = page === 1 ? page : page - 1
+        }
+      "
+    >
       &lt; Précédent
     </button>
     <span class="fw-semibold">Page {{ page }} / {{ maxPage }}</span>
-    <button class="btn btn-primary" :disabled="page >= maxPage" @click="
-      () => {
-        page = page === maxPage ? page : page + 1
-      }
-    ">
+    <button
+      class="btn btn-primary"
+      :disabled="page >= maxPage"
+      @click="
+        () => {
+          page = page === maxPage ? page : page + 1
+        }
+      "
+    >
       Suivant &gt;
     </button>
   </div>
