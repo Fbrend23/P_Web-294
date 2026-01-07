@@ -15,6 +15,7 @@ const filters = reactive({
 </script>
 <template>
   <div class="container my-4">
+    <h2 class="display-6 fw-bold">Catalogue</h2>
     <div class="row g-4">
       <div class="col-md-3">
         <BookFilter
@@ -35,3 +36,8 @@ const filters = reactive({
     </div>
   </div>
 </template>
+<style scoped>
+h2 {
+  margin-bottom: 20px;
+}
+</style>

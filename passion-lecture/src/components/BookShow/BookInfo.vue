@@ -44,8 +44,6 @@ const formatAverage = (avg) => {
 
 const onSubmit = async () => {
   try {
-    console.log('Envoi au serveur:', props.book.id, userRating.value)
-
     await apiAddAnEval(props.book.id, userRating.value)
 
     // Refresh avg rating after submitting

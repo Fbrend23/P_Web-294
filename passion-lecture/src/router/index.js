@@ -130,7 +130,7 @@ function checkAuthenticated(to, from, next) {
   if (!isAuthenticated) {
     next()
   } else {
-    console.log('You are already logged in')
+    console.error('You are already logged in')
     next({ name: 'home' })
   }
 }

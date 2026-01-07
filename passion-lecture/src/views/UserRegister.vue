@@ -24,8 +24,6 @@ async function register() {
       },
     )
   } catch (e) {
-    // console.log(e)
-    console.log(e.response.data.errors)
     e.response.data.errors.forEach((error) => {
       if (error.message === 'The username has already been taken') {
         errors.value.push("Ce nom d'utilisateur existe déjà.")
