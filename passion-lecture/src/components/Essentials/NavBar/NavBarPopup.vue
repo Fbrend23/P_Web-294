@@ -20,18 +20,17 @@ async function logout() {
         <img src="@/assets/icons/profile-icon.svg" alt="profile-icon" />
         <p>{{ auth.user.username }}</p>
       </div>
-      <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link"
-        >Voir son profil</router-link
-      >
+      <router-link :to="{ name: 'userPage', params: { id: auth.user.id } }" id="profile-link">Voir son
+        profil</router-link>
     </div>
     <div id="parameters">
       <router-link :to="{ name: 'userBook' }" class="link">
         <img src="@/assets/icons/book-open.svg" alt="books" />
         <p>Gérer vos ouvrages</p>
       </router-link>
-      <a href="#" class="link">
+      <a href="#" @click="logout" class="link">
         <img src="@/assets/icons/logout.svg" alt="logout" />
-        <button @click="logout">Se déconnecter</button>
+        <p>Se déconnecter</p>
       </a>
     </div>
   </div>
@@ -49,6 +48,7 @@ async function logout() {
   flex-direction: column;
   align-items: center;
   width: 12vw;
+  z-index: 9999999999999999;
 }
 
 #parameters {
@@ -63,7 +63,6 @@ async function logout() {
   align-items: center;
   border-bottom: solid #fafafa 3px;
   margin-bottom: 10px;
-  width: 13vw;
 }
 
 #profile-infos {
@@ -100,5 +99,9 @@ async function logout() {
 
 #parameters a img {
   margin-right: 10px;
+}
+
+p {
+  margin: 0
 }
 </style>
