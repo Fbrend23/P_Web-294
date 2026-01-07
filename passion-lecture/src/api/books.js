@@ -6,7 +6,7 @@ export function apiGetAllBooks() {
 
 export function apiGetCustomBooks(page, limit, sort, order, categoryId, search) {
   return api.get(
-    `/books?page=${page}&limit=${limit}&sort${sort}&order=${order}${categoryId !== '' ? `&categoryId=${categoryId}` : ''}${search !== '' ? `&search=${search}` : ''}`,
+    `/books?page=${page}&limit=${limit}&sort=${sort}&order=${order}${categoryId !== '' ? `&categoryId=${categoryId}` : ''}${search !== '' ? `&search=${search}` : ''}`,
   )
 }
 

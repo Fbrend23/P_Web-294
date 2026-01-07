@@ -89,8 +89,6 @@ const handleExtractUpload = (event) => {
 }
 
 const handleSubmit = () => {
-  console.log(formData.value.removeImage)
-  console.log(formData.value.removePDF)
   emit('submit-form', formData.value)
 }
 </script>

@@ -1,5 +1,5 @@
 <script setup>
-import { apiGetAllBooks } from '@/api/books'
+import { apiGetCustomBooks } from '@/api/books'
 import { ref, onMounted } from 'vue'
 
 const books = ref([])
@@ -14,15 +14,8 @@ const getImageUrl = (path) => {
 
 onMounted(async () => {
   try {
-    const response = await apiGetAllBooks()
-
-    // Sort by date in descending order (most recent → oldest)
-    const sorted = response.data.data.sort((a, b) => {
-      return new Date(b.createdAt) - new Date(a.createdAt)
-    })
-
-    // Keeps the 5 latest
-    books.value = sorted.slice(0, 5)
+    const response = await apiGetCustomBooks(1, 5, 'created_at', 'desc', '', '')
+    books.value = response.data.data
   } catch (error) {
     console.error('Error while fetching books:', error)
   }

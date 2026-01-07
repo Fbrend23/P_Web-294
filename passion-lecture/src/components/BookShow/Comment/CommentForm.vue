@@ -13,9 +13,6 @@ const commentText = ref(null)
 const submitComment = async () => {
   try {
     await apiAddAComments(props.book.id, commentText.value)
-
-    console.log('Commentaire envoyé :', commentText.value)
-
     // Close form after sending it
     emits('close')
   } catch (err) {

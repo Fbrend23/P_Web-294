@@ -28,6 +28,7 @@ onMounted(async () => {
         category,
         search,
       )
+      console.log(props.filters)
       maxPage.value = response.data.meta.lastPage
       page.value = page.value <= maxPage.value ? page.value : 1
       books.value = response.data.data
@@ -64,7 +65,7 @@ onMounted(async () => {
               :key="index"
               :bookInfo="book"
             ></BookDisplay>
-            <tr v-if="books.length === 0">
+            <tr v-if="books.length === 0 && !loading">
               <td colspan="5" class="text-center py-4 text-muted">Aucun résultat</td>
             </tr>
           </tbody>
