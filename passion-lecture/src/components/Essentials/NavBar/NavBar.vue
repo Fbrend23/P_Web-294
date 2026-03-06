@@ -27,10 +27,17 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('click', handleClickOutside)
 })
+const loginWithMicrosoft = () => {
+  // On utilise l'URL du backend (VITE_API_URL défini dans ton .env)
+  const backendUrl = import.meta.env.VITE_API_URL
+  window.location.href = `${backendUrl}/auth/login-microsoft`
+}
 </script>
 <template>
   <nav>
-    <router-link :to="{ name: 'home' }"><h1>Passion lecture</h1></router-link>
+    <router-link :to="{ name: 'home' }">
+      <h1>Passion lecture</h1>
+    </router-link>
 
     <div class="nav-div">
       <router-link :to="{ name: 'home' }" class="nav-link">Accueil</router-link>
@@ -39,6 +46,9 @@ onUnmounted(() => {
     <div v-if="!connected" class="nav-div">
       <router-link :to="{ name: 'register' }" class="nav-link">S'inscrire</router-link>
       <router-link :to="{ name: 'login' }" class="nav-btn">Se connecter</router-link>
+      <button @click="loginWithMicrosoft" class="ms-button nav-btn">
+        Se connecter avec Microsoft
+      </button>
     </div>
     <div v-else class="nav-div">
       <router-link :to="{ name: 'bookCreate' }" class="nav-btn">+ Créer</router-link>

@@ -19,6 +19,11 @@ async function login() {
     error.value = 'Invalid username or password'
   }
 }
+const loginWithMicrosoft = () => {
+  // On utilise l'URL du backend (VITE_API_URL défini dans ton .env)
+  const backendUrl = import.meta.env.VITE_API_URL
+  window.location.href = `${backendUrl}/auth/login-microsoft`
+}
 </script>
 <template>
   <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh">
@@ -34,6 +39,9 @@ async function login() {
           <input type="password" class="form-control" v-model="password" required />
         </div>
         <p v-if="error" class="text-danger text-center mb-3">{{ error }}</p>
+        <button @click="loginWithMicrosoft" class="ms-button">
+          Se connecter avec Microsoft
+        </button>
         <button type="submit" class="btn btn-dark w-100 rounded-pill py-2 mt-2 fw-bold">
           Se connecter
         </button>

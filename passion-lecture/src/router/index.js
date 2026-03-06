@@ -72,6 +72,11 @@ const routes = [
     meta: { requiresAuth: true },
     beforeEnter: [checkBookOwnership],
   },
+  {
+    path: '/auth/callback',
+    name: 'auth-callback',
+    component: () => import('../views/AuthCallback.vue'),
+  },
 ]
 
 const router = createRouter({
